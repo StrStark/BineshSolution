@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  identityservice:
+    build:
+      context: .
+      dockerfile: ../src/IdentityService/Dockerfile
+    container_name: identityservice
+    restart: always
+    ports:
+      - "5001:8080"
+      - "5002:8081"
+    environment:
+      - ASPNETCORE_URLS=http://+:8080;http://+:8081
+      - ConnectionStrings__DefaultConnection=Host=postgres;Database=mydb;Username=myuser;Password=mypassword
+      - RabbitMQ__Host=rabbitmq
+      - RabbitMQ__Username=guest
+      - RabbitMQ__Password=guest
+
+  openaiservice:
+    build:
+      context: .
+      dockerfile: ../src/OpenAiService/Dockerfile
+    container_name: openaiservice
+    restart: always
+    ports:
+      - "5003:8080"
+      - "5004:8081"
+    environment:
+      - ASPNETCORE_URLS=http://+:8080;http://+:8081
+      - RabbitMQ__Host=rabbitmq
+      - RabbitMQ__Username=guest
+      - RabbitMQ__Password=guest

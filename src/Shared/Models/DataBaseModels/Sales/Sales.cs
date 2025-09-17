@@ -1,0 +1,22 @@
+﻿using Shared.Enum;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Shared.Models.DataBaseModels.Sales;
+
+public class Sales
+{
+    public Product Product { get; set; } = default!;
+    public DateTime Date { get; set; }
+    public Invoice Invoice { get; set; } = default!;
+    public float Incoming { get; set; }
+    public float Outgoing { get; set; }
+    public int RequestNumber { get; set; }
+    public RequestState State { get; set; } = default!;
+    public float DeliveredQuantity { get; set; }
+    public Price Price { get; set; } = default!;
+    public string? Region { get; set; }
+}
