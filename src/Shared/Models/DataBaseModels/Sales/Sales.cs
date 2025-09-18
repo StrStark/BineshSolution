@@ -1,4 +1,5 @@
 ﻿using Shared.Enum;
+using Shared.Models.DataBaseModels.Inventory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
