@@ -41,15 +41,49 @@ namespace DataBaseManager.Controllers
                         {
                             "فرش" => new Carpet
                             {
+                                InventoryCode = item.kCode,
+                                InventoryDesc = item.kDesc,
+                                InventoryDesc2 = item.kDesc2,
+                                InventoryDescBarcode = item.kDescBarcode,
+                                InventoryDescLatin = item.kDescLatin,
+                                InventoryIsActive = item.kIsActive,
+                                DesignName = item.prop1,
+                                Color = item.prop2,
+                                BorderColor = item.prop3,
+                                DesignCode = item.prop4,
+                                Shoulder = item.prop5,//fix the damn name
+                                Density = item.prop6,// implement parser
+                                Size = item.prop7,
+                                WeaveType = item.prop8,
+                                ColorCount = int.Parse(item.prop9),
+                                genus = item.prop10,
+                                Grade = item.prop11,
+                                ProjectName = item.prop12,
+                                Manufacturer = item.prop13,
+                                ColorPalette = item.prop14,
+                                WeavePattern = item.prop15,
+                                Buyer = item.prop16,
+                                DeviceNumber = item.prop17,
                                 
+
                             },
                             "مواد اولیه" => new RawMaterial
                             {
-
+                                InventoryCode = item.kCode,
+                                InventoryDesc = item.kDesc,
+                                InventoryDesc2 = item.kDesc2,
+                                InventoryDescBarcode = item.kDescBarcode,
+                                InventoryDescLatin = item.kDescLatin,
+                                InventoryIsActive = item.kIsActive,
                             },
                             "" => new Rug
                             {
-
+                                InventoryCode = item.kCode,
+                                InventoryDesc = item.kDesc,
+                                InventoryDesc2 = item.kDesc2,
+                                InventoryDescBarcode = item.kDescBarcode,
+                                InventoryDescLatin = item.kDescLatin,
+                                InventoryIsActive = item.kIsActive,
                             },
                             _ => throw new NotImplementedException()
                         };

@@ -13,7 +13,7 @@ public class Carpet : Product
     public string? ColorPalette { get; set; }   
     public int Density { get; set; }            
     public int ColorCount { get; set; }         
-    public string? Gender { get; set; }         
+    public string? genus { get; set; } // gens    
     public string? Grade { get; set; }          
     public string? Color { get; set; }          
     public string? BorderColor { get; set; }    
@@ -22,7 +22,7 @@ public class Carpet : Product
     public string? WeavePattern { get; set; }   
     public string? DeviceNumber { get; set; }   
     public string? Buyer { get; set; }          
-    public string? ContractCode { get; set; }   
+    public string? DesignCode { get; set; }   
     public string? ProjectName { get; set; }    
     public string? DesignName { get; set; }     
     public string? WeaveType { get; set; }      
