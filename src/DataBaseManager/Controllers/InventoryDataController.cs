@@ -4,6 +4,7 @@ using Shared.Dtos;
 using Shared.Models.DataBaseModels.Inventory;
 using System.Net;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace DataBaseManager.Controllers
 {
@@ -17,24 +18,52 @@ namespace DataBaseManager.Controllers
         {
             _dbContext = dbContext;
         }
-        [HttpPost]
-        public async Task<ApiResponse> ImportJson([FromForm] IFormFile file)
+        [HttpPost("import-json")]
+        public async Task<ApiResponse> ImportJson([FromBody] ImportRequest request)
         {
-            if (file == null || file.Length == 0)
-                return ApiResponse.Success("No file uploaded.", HttpStatusCode.BadRequest);
-
             try
             {
-                using var stream = file.OpenReadStream();
-                var jsonDoc = await JsonDocument.ParseAsync(stream);
+                if (string.IsNullOrWhiteSpace(request.JWT))
+                    return ApiResponse.Fail("JWT token is required.", HttpStatusCode.BadRequest);
 
-                if (!jsonDoc.RootElement.TryGetProperty("items", out var itemsElement))
-                    return ApiResponse.Success("JSON does not contain 'items'.", HttpStatusCode.BadRequest);
+                if (request.Chunks <= 0)
+                    return ApiResponse.Fail("Chunks must be greater than zero.", HttpStatusCode.BadRequest);
 
-                var items = JsonSerializer.Deserialize<List<Item>>(itemsElement.GetRawText());
+                using var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", request.JWT);
 
-                if (items != null)
+                // for now , we will set this after the first request!
+                int InventorySize = request.Chunks;
+
+                for (int page = 1; page <= (InventorySize/request.Chunks) +1; page++)
                 {
+                    string url = $"http://185.153.211.155:88/api/Anbar/GetKala?pageNumber={page}&pageSize={request.Chunks}";
+                    var response = await httpClient.GetAsync(url);
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return ApiResponse.Fail($"Failed to fetch data from external API. Status: {response.StatusCode}", response.StatusCode);
+                    }
+
+                    string content = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(content);
+
+                    if (!jsonDoc.RootElement.TryGetProperty("items", out var itemsElement))
+                    {
+                        return ApiResponse.Fail("JSON response does not contain 'items'.", HttpStatusCode.BadRequest);
+                    }
+
+                    if (!jsonDoc.RootElement.TryGetProperty("totalCount", out var InventorySizejson))
+                    {
+                        return ApiResponse.Fail("JSON response does not contain 'totalCount'.", HttpStatusCode.BadRequest);
+                    }
+
+                    InventorySize = JsonSerializer.Deserialize<int>(InventorySizejson.GetRawText());
+
+                    var items = JsonSerializer.Deserialize<List<Item>>(itemsElement.GetRawText());
+                    if (items == null || items.Count == 0)
+                        continue;
+
                     foreach (var item in items)
                     {
                         Product product = item.grp switch
@@ -51,11 +80,11 @@ namespace DataBaseManager.Controllers
                                 Color = item.prop2,
                                 BorderColor = item.prop3,
                                 DesignCode = item.prop4,
-                                Shoulder = item.prop5,//fix the damn name
-                                Density = item.prop6,// implement parser
+                                Shoulder = item.prop5,        // TODO: fix property name
+                                Density = item.prop6,         // TODO: implement parser
                                 Size = item.prop7,
                                 WeaveType = item.prop8,
-                                ColorCount = int.Parse(item.prop9),
+                                ColorCount = int.TryParse(item.prop9, out var count) ? count : 0,
                                 genus = item.prop10,
                                 Grade = item.prop11,
                                 ProjectName = item.prop12,
@@ -63,43 +92,39 @@ namespace DataBaseManager.Controllers
                                 ColorPalette = item.prop14,
                                 WeavePattern = item.prop15,
                                 Buyer = item.prop16,
-                                DeviceNumber = item.prop17,
-                                
-
+                                DeviceNumber = item.prop17
                             },
                             "مواد اولیه" => new RawMaterial
                             {
-                                InventoryCode = item.kCode,
-                                InventoryDesc = item.kDesc,
-                                InventoryDesc2 = item.kDesc2,
-                                InventoryDescBarcode = item.kDescBarcode,
-                                InventoryDescLatin = item.kDescLatin,
-                                InventoryIsActive = item.kIsActive,
+
                             },
-                            "" => new Rug
+                            "گلیم" => new Rug
                             {
-                                InventoryCode = item.kCode,
-                                InventoryDesc = item.kDesc,
-                                InventoryDesc2 = item.kDesc2,
-                                InventoryDescBarcode = item.kDescBarcode,
-                                InventoryDescLatin = item.kDescLatin,
-                                InventoryIsActive = item.kIsActive,
+
                             },
-                            _ => throw new NotImplementedException()
+                            _ => null!
                         };
-                        _dbContext.Products.Add(product);
+                        if (product != null)
+                        {
+                            _dbContext.Products.Add(product!);
+                        }
                     }
 
                     await _dbContext.SaveChangesAsync();
                 }
 
-                return new ApiResponse { Success = true, Message = "Data imported successfully." };
+                return ApiResponse.Success("Data imported successfully.", HttpStatusCode.Accepted);
+            }
+            catch (JsonException ex)
+            {
+                return ApiResponse.Fail($"Invalid JSON format: {ex.Message}", HttpStatusCode.BadRequest);
             }
             catch (Exception ex)
             {
-                return new ApiResponse { Success = false, Message = $"Error importing data: {ex.Message}" };
+                return ApiResponse.Fail($"Error importing data: {ex.Message}", HttpStatusCode.InternalServerError);
             }
         }
+
         public record Item(
             string kCode,
             string kDesc,
@@ -126,7 +151,11 @@ namespace DataBaseManager.Controllers
             string prop16,
             string prop17
         );
-
+        public class ImportRequest
+        {
+            public int Chunks { get; set; }
+            public string JWT { get; set; }
+        }
     }
 
 }

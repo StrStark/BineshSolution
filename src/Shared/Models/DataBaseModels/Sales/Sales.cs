@@ -2,6 +2,7 @@
 using Shared.Models.DataBaseModels.Inventory;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace Shared.Models.DataBaseModels.Sales;
 
 public class Sales
 {
+    [Key]
+    public Guid Id { get; set; } = Guid.NewGuid();
     public Product Product { get; set; } = default!;
     public DateTime Date { get; set; }
     public Invoice Invoice { get; set; } = default!;

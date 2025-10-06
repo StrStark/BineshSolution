@@ -11,7 +11,7 @@ namespace Shared.Models.DataBaseModels.Inventory;
 public class Carpet : Product
 {
     public string? ColorPalette { get; set; }   
-    public int Density { get; set; }            
+    public string? Density { get; set; }            
     public int ColorCount { get; set; }         
     public string? genus { get; set; } // gens    
     public string? Grade { get; set; }          

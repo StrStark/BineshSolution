@@ -40,7 +40,7 @@ public static partial class Program
 
         //services.AddScoped<IUserService, UserService>();
         //services.AddScoped<ITokenService, TokenService>();
-        //services.AddScoped<ApplicationDbContext>();
+        services.AddScoped<InventoryDbContext>();
 
         //services.AddSingleton(certificate);
         //services.AddSingleton(env);

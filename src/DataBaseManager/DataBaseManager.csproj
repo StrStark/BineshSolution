@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <Folder Include="DataBaseCore\" />
+    <Folder Include="Sales\" />
   </ItemGroup>
 
 </Project>
