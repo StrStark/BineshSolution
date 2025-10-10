@@ -9,8 +9,7 @@ using Shared.Models.DataBaseModels.Sales;
 namespace Shared.Models.DataBaseModels.Inventory;
 public class Product
 {
-    [Key]
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; }
     public string? Manufacturer { get; set; }
     public string? InventoryCode { get; set; }
     public string? InventoryDesc { get; set; }
@@ -18,6 +17,5 @@ public class Product
     public string? InventoryDescBarcode { get; set; }
     public string? InventoryDescLatin { get; set; }
     public bool InventoryIsActive { get; set; }
-    public ICollection<Sales.Sales> Sales { get; set; } = new List<Sales.Sales>();
 }
 

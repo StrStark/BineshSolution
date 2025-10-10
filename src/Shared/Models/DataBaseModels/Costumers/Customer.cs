@@ -7,11 +7,15 @@ using Shared.Enum;
 
 namespace Shared.Models.DataBaseModels.Costumers;
 
-public class Costumer
+public class Customer
 {
+    public Guid Id { get; set; }
+
+    public Guid PersonId { get; set; }
     public Person Person { get; set; } = default!;
+   
     public bool Active { get; set; }
     public ICostumerType Type{ get; set; }
     public string? Desc { get; set; }
-
+    public float PaymentReliability { get; set; }
 }

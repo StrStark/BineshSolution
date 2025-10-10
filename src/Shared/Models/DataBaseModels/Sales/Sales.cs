@@ -11,16 +11,21 @@ namespace Shared.Models.DataBaseModels.Sales;
 
 public class Sales
 {
-    [Key]
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; }
+
+    public Guid ProductId { get; set; }
     public Product Product { get; set; } = default!;
-    public DateTime Date { get; set; }
+   
+    public Guid InvoiceId { get; set; }
     public Invoice Invoice { get; set; } = default!;
+    
+    public Guid PriceId { get; set; }
+    public Price Price { get; set; } = default!;
+
+    public RequestState State { get; set; } = default!;
+    public DateTime Date { get; set; }
     public float Incoming { get; set; }
     public float Outgoing { get; set; }
     public int RequestNumber { get; set; }
-    public RequestState State { get; set; } = default!;
     public float DeliveredQuantity { get; set; }
-    public Price Price { get; set; } = default!;
-    public string? Region { get; set; }
 }

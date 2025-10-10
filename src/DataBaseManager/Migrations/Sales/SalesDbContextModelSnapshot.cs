@@ -8,10 +8,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DataBaseManager.Migrations.Inventory
+namespace DataBaseManager.Migrations.Sales
 {
-    [DbContext(typeof(InventoryDbContext))]
-    partial class InventoryDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(SalesDbContext))]
+    partial class SalesDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -26,34 +26,139 @@ namespace DataBaseManager.Migrations.Inventory
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<string>("InventoryCode")
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("InventoryDesc")
-                        .HasColumnType("text");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<string>("InventoryDesc2")
-                        .HasColumnType("text");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<string>("InventoryDescBarcode")
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("InventoryDescLatin")
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<bool>("InventoryIsActive")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Manufacturer")
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Products");
 
                     b.UseTpcMappingStrategy();
+                });
+
+            modelBuilder.Entity("Shared.Models.DataBaseModels.Sales.Invoice", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("gen_random_uuid()");
+
+                    b.Property<string>("Counterparty")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<int>("DocNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Request")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("invoice")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Invoices");
+                });
+
+            modelBuilder.Entity("Shared.Models.DataBaseModels.Sales.Price", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("gen_random_uuid()");
+
+                    b.Property<long>("Fee")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Receipt")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Voucher")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Prices");
+                });
+
+            modelBuilder.Entity("Shared.Models.DataBaseModels.Sales.Sales", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("gen_random_uuid()");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<float>("DeliveredQuantity")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Incoming")
+                        .HasColumnType("real");
+
+                    b.Property<Guid>("InvoiceId")
+                        .HasColumnType("uuid");
+
+                    b.Property<float>("Outgoing")
+                        .HasColumnType("real");
+
+                    b.Property<Guid>("PriceId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("RequestNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InvoiceId")
+                        .IsUnique();
+
+                    b.HasIndex("PriceId")
+                        .IsUnique();
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Sales");
                 });
 
             modelBuilder.Entity("Shared.Models.DataBaseModels.Inventory.Carpet", b =>
@@ -206,6 +311,33 @@ namespace DataBaseManager.Migrations.Inventory
                         .HasColumnType("text");
 
                     b.ToTable("Rugs", (string)null);
+                });
+
+            modelBuilder.Entity("Shared.Models.DataBaseModels.Sales.Sales", b =>
+                {
+                    b.HasOne("Shared.Models.DataBaseModels.Sales.Invoice", "Invoice")
+                        .WithOne()
+                        .HasForeignKey("Shared.Models.DataBaseModels.Sales.Sales", "InvoiceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Shared.Models.DataBaseModels.Sales.Price", "Price")
+                        .WithOne()
+                        .HasForeignKey("Shared.Models.DataBaseModels.Sales.Sales", "PriceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Shared.Models.DataBaseModels.Inventory.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Invoice");
+
+                    b.Navigation("Price");
+
+                    b.Navigation("Product");
                 });
 #pragma warning restore 612, 618
         }

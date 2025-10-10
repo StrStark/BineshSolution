@@ -9,13 +9,13 @@ namespace Shared.Models.DataBaseModels.Inventory;
 
 public class Rug : Product 
 {
-    public string Name { get; set; }          
-    public string WeaveType { get; set; }     
-    public string Design { get; set; }        
-    public string Color { get; set; }         
-    public string Size { get; set; }          
-    public string Width { get; set; }         
-    public string Buyer { get; set; }         
-    public string DesignCode { get; set; }    
+    public string? Name { get; set; }          
+    public string? WeaveType { get; set; }     
+    public string? Design { get; set; }        
+    public string? Color { get; set; }         
+    public string? Size { get; set; }          
+    public string? Width { get; set; }         
+    public string? Buyer { get; set; }         
+    public string? DesignCode { get; set; }    
     public int ColorCount { get; set; }       
 }

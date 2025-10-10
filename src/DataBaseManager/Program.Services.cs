@@ -33,14 +33,13 @@ public static partial class Program
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
 
-        //services.AddDbContext<InventoryDbContext>(op => op.UseSqlServer(ConnectionString));
+        services.AddDbContext<AccountingDbContext>(op => op.UseNpgsql(ConnectionString));
+        services.AddDbContext<SalesDbContext>(op => op.UseNpgsql(ConnectionString));
 
 
-        services.AddDbContext<InventoryDbContext>(op => op.UseNpgsql(ConnectionString));
 
         //services.AddScoped<IUserService, UserService>();
         //services.AddScoped<ITokenService, TokenService>();
-        services.AddScoped<InventoryDbContext>();
 
         //services.AddSingleton(certificate);
         //services.AddSingleton(env);

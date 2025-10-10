@@ -9,13 +9,14 @@ namespace Shared.Models.DataBaseModels.Costumers;
 
 public class Person
 {
-    [Key]
     public Guid Id { get; set; }
+
     public string? Name { get; set; }
     public string? Family { get; set; }
     public string? Phone { get; set; }
     public string? Fax { get; set; }
     public string? PhoneNumber { get; set; }
-    public Region Region { get; set; }
 
+    public Guid RegionId { get; set; }
+    public Region Region { get; set; } = default!;
 }
