@@ -17,5 +17,13 @@ public class Product
     public string? InventoryDescBarcode { get; set; }
     public string? InventoryDescLatin { get; set; }
     public bool InventoryIsActive { get; set; }
+
+    public Guid InventoryId{ get; set; }
+    public Inventory Inventory { get; set; } = default!;
+    public DateTime EnteryDate { get; set; } = default!;
+    public DateTime ExitDate { get; set; } = default!;
+
+    public float Cost { get; set; }
+    public float SellingPrice { get; set; }
 }
 

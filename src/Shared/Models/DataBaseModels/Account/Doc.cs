@@ -1,4 +1,6 @@
-﻿namespace Shared.Models.DataBaseModels.Account;
+﻿using Shared.Models.DataBaseModels.Account;
+
+namespace Shared.Models.DataBaseModels.Account;
 
 public class Doc
 {

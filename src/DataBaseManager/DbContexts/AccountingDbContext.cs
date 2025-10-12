@@ -12,7 +12,6 @@ namespace DataBaseManager.DbContexts
 
 
         public DbSet<Account> Accounts { get; set; } = default!;
-//        public DbSet<Doc> NormalDocs { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

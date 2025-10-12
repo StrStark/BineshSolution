@@ -10,19 +10,18 @@ public class SalesDbContext : DbContext
     public SalesDbContext(DbContextOptions<SalesDbContext> options) : base(options) { }
 
     public DbSet<Sales> Sales { get; set; } = default!;
-    public DbSet<Product> Products { get; set; } = default!;
-    public DbSet<Carpet> Carpets { get; set; } = default!;
-    public DbSet<Rug> Rugs { get; set; } = default!;
-    public DbSet<RawMaterial> RawMaterials { get; set; } = default!;
     public DbSet<Invoice> Invoices { get; set; } = default!;
     public DbSet<Price> Prices { get; set; } = default!;
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Product>().UseTpcMappingStrategy();
+        base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Carpet>().ToTable("Carpets");
-        modelBuilder.Entity<Rug>().ToTable("Rugs");
-        modelBuilder.Entity<RawMaterial>().ToTable("RawMaterials");
+        modelBuilder.Entity<Product>(e =>
+        {
+            e.ToTable("Products");
+            e.HasKey(p => p.Id);
+            e.Metadata.SetIsTableExcludedFromMigrations(true); // 👈 crucial
+        });
 
         modelBuilder.Entity<Sales>(e =>
         {
