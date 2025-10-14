@@ -37,8 +37,8 @@ public static partial class Program
         services.AddDbContext<SalesDbContext>(op => op.UseNpgsql(ConnectionString));
         services.AddDbContext<InventoryDbContext>(op => op.UseNpgsql(ConnectionString));
         services.AddDbContext<CustomerDbContext>(op => op.UseNpgsql(ConnectionString));
-        services.AddScoped<AccountingDbContext>();
-        services.AddScoped<ITokenService, TokenService>();
+        //services.AddScoped<AccountingDbContext>();
+        //services.AddScoped<ITokenService, TokenService>();
 
         //services.AddSingleton(certificate);
         //services.AddSingleton(env);
