@@ -46,7 +46,7 @@ namespace DataBaseManager.DbContexts
                  .WithMany()
                  .HasForeignKey(p => p.RegionId)
                  .OnDelete(DeleteBehavior.Restrict);
-            })
+            });
 
             modelBuilder.Entity<Region>(e =>
             {
