@@ -12,14 +12,13 @@ public class Inventory
 {
     public Guid Id { get; set; }
 
-            
     public int Code { get; set; }    
     public string? Description { get; set; }
     public string? Address { get; set; }
     public string? Manager { get; set; }
 
-    public Guid AccountId { get; set; }
-    public Account.Account Account { get; set; } = default!;
+    public Guid? AccountId { get; set; }
+    public Account.Account? Account { get; set; } = default!;
     
     public bool BarcodeEnabled { get; set; }
     public bool Identifiable { get; set; }

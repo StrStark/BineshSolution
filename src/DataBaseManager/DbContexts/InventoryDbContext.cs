@@ -35,7 +35,8 @@ namespace DataBaseManager.DbContexts
                 I.HasOne(e=>e.Account)
                  .WithMany()
                  .HasForeignKey(e=>e.AccountId)
-                 .OnDelete(DeleteBehavior.Restrict);
+                 .OnDelete(DeleteBehavior.Cascade)
+                 .IsRequired(false); // there is a damn problem here !!!!!!!!!!!!!!!!!!!
 
                 I.HasMany(i => i.Products)
                  .WithOne(p=> p.Inventory)
@@ -50,12 +51,12 @@ namespace DataBaseManager.DbContexts
                 e.Property(s => s.Id).HasDefaultValueSql("gen_random_uuid()");
 
                 e.Property(p => p.Manufacturer).HasMaxLength(200);
-                e.Property(p => p.InventoryCode).HasMaxLength(200);
-                e.Property(p => p.InventoryDesc).HasMaxLength(500);
-                e.Property(p => p.InventoryDesc2).HasMaxLength(500);
-                e.Property(p => p.InventoryDescBarcode).HasMaxLength(200);
-                e.Property(p => p.InventoryDescLatin).HasMaxLength(200);
-                e.Property(p => p.InventoryIsActive);
+                e.Property(p => p.ProductCode).HasMaxLength(200);
+                e.Property(p => p.ProductDesc).HasMaxLength(500);
+                e.Property(p => p.ProductDesc2).HasMaxLength(500);
+                e.Property(p => p.ProductDescBarcode).HasMaxLength(200);
+                e.Property(p => p.ProductDescLatin).HasMaxLength(200);
+                e.Property(p => p.ProductIsActive);
 
                 e.HasOne(p => p.Inventory)
                  .WithMany(i => i.Products)

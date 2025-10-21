@@ -18,7 +18,7 @@ public class Account
 
     public bool IsLayerOne { get; set; }
     public string? Name  { get; set; }
-    public string? Desc { get; set; }
+    public string? Code { get; set; }
     public Int64 SumDebit { get; set; }
     public Int64 SumCredit { get; set; }
     public Int64 Debit { get; set; }
@@ -38,6 +38,6 @@ public class Account
    // public List<Doc> Docs { get; set; } = default!;
     public List<Account> SubAccounts { get; set; } = default!;
 
-    public Guid ParentId { get; set; }
+    public Guid? ParentId { get; set; }
     public Account Parent { get; set; } = default!;
 }

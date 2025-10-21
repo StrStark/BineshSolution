@@ -25,7 +25,6 @@ namespace DataBaseManager.DbContexts
                      .HasDefaultValueSql("gen_random_uuid()");
 
                 e.Property(a => a.Name).HasMaxLength(200);
-                e.Property(a => a.Desc).HasMaxLength(500);
                 e.Property(a => a.ArticleDescription).HasMaxLength(500);
                 e.Property(a => a.OperationName).HasMaxLength(200);
                 e.Property(a => a.chequeCode).HasMaxLength(100);
@@ -36,7 +35,8 @@ namespace DataBaseManager.DbContexts
                 e.HasMany(a => a.SubAccounts)
                  .WithOne(a => a.Parent)
                  .HasForeignKey(a => a.ParentId)
-                 .OnDelete(DeleteBehavior.Restrict);
+                 .OnDelete(DeleteBehavior.Cascade);
+
             });
         }
 

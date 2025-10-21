@@ -78,12 +78,12 @@ public class SalesDbContext : DbContext
             e.HasKey(s => s.Id);
             e.Property(s => s.Id).HasDefaultValueSql("gen_random_uuid()");
             e.Property(p => p.Manufacturer).HasMaxLength(200);
-            e.Property(p => p.InventoryCode).HasMaxLength(200);
-            e.Property(p => p.InventoryDesc).HasMaxLength(500);
-            e.Property(p => p.InventoryDesc2).HasMaxLength(500);
-            e.Property(p => p.InventoryDescBarcode).HasMaxLength(200);
-            e.Property(p => p.InventoryDescLatin).HasMaxLength(200);
-            e.Property(p => p.InventoryIsActive);
+            e.Property(p => p.ProductCode).HasMaxLength(200);
+            e.Property(p => p.ProductDesc).HasMaxLength(500);
+            e.Property(p => p.ProductDesc2).HasMaxLength(500);
+            e.Property(p => p.ProductDescBarcode).HasMaxLength(200);
+            e.Property(p => p.ProductDescLatin).HasMaxLength(200);
+            e.Property(p => p.ProductIsActive);
         });
     }
 }

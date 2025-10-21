@@ -11,12 +11,12 @@ public class Product
 {
     public Guid Id { get; set; }
     public string? Manufacturer { get; set; }
-    public string? InventoryCode { get; set; }
-    public string? InventoryDesc { get; set; }
-    public string? InventoryDesc2 { get; set; }
-    public string? InventoryDescBarcode { get; set; }
-    public string? InventoryDescLatin { get; set; }
-    public bool InventoryIsActive { get; set; }
+    public string? ProductCode { get; set; }
+    public string? ProductDesc { get; set; }
+    public string? ProductDesc2 { get; set; }
+    public string? ProductDescBarcode { get; set; }
+    public string? ProductDescLatin { get; set; }
+    public bool ProductIsActive { get; set; }
 
     public Guid InventoryId{ get; set; }
     public Inventory Inventory { get; set; } = default!;
