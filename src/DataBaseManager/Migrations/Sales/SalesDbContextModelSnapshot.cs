@@ -22,6 +22,137 @@ namespace DataBaseManager.Migrations.Sales
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Shared.Models.DataBaseModels.Account.Account", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Article")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ArticleDescription")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("text");
+
+                    b.Property<long>("Credit")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("Debit")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("DocDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("GroupType")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("GroupTypeDesc")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsLayerOne")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("OperationName")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("ParentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("SeriesNumber")
+                        .HasColumnType("text");
+
+                    b.Property<long>("SumCredit")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("SumDebit")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("chequeCode")
+                        .HasColumnType("text");
+
+                    b.Property<int>("inflection")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("Account");
+                });
+
+            modelBuilder.Entity("Shared.Models.DataBaseModels.Inventory.Inventory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("AccountId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("ActiveInReceiptRegistration")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("ActiveInReports")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("AffectProductionRequestBySalesOrder")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("AffectStockCalculation")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("AllowNegativeStock")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("BarcodeEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Code")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Identifiable")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsMonetary")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("LimitByAccountAndDocumentType")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("LimitByMarketer")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Manager")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("UseAverageOrFIFOFromYearStart")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.ToTable("Inventory");
+                });
+
             modelBuilder.Entity("Shared.Models.DataBaseModels.Inventory.Product", b =>
                 {
                     b.Property<Guid>("Id")
@@ -29,36 +160,53 @@ namespace DataBaseManager.Migrations.Sales
                         .HasColumnType("uuid")
                         .HasDefaultValueSql("gen_random_uuid()");
 
-                    b.Property<string>("InventoryCode")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                    b.Property<float>("Cost")
+                        .HasColumnType("real");
 
-                    b.Property<string>("InventoryDesc")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
+                    b.Property<DateTime>("EnteryDate")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("InventoryDesc2")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
+                    b.Property<DateTime>("ExitDate")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("InventoryDescBarcode")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<string>("InventoryDescLatin")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<bool>("InventoryIsActive")
-                        .HasColumnType("boolean");
+                    b.Property<Guid>("InventoryId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Manufacturer")
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
+                    b.Property<string>("ProductCode")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("ProductDesc")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("ProductDesc2")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("ProductDescBarcode")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("ProductDescLatin")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<bool>("ProductIsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<float>("SellingPrice")
+                        .HasColumnType("real");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.HasIndex("InventoryId");
+
+                    b.ToTable("Products", (string)null);
 
                     b.UseTpcMappingStrategy();
                 });
@@ -221,51 +369,39 @@ namespace DataBaseManager.Migrations.Sales
                     b.HasBaseType("Shared.Models.DataBaseModels.Inventory.Product");
 
                     b.Property<string>("Code")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Color")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("DeviceUsage")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Extra1")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Extra2")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Extra3")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Gender")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Number")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PackageType")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ProjectName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Serial")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Type")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.ToTable("RawMaterials", (string)null);
@@ -276,41 +412,62 @@ namespace DataBaseManager.Migrations.Sales
                     b.HasBaseType("Shared.Models.DataBaseModels.Inventory.Product");
 
                     b.Property<string>("Buyer")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Color")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("ColorCount")
                         .HasColumnType("integer");
 
                     b.Property<string>("Design")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("DesignCode")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Size")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("WeaveType")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Width")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.ToTable("Rugs", (string)null);
+                });
+
+            modelBuilder.Entity("Shared.Models.DataBaseModels.Account.Account", b =>
+                {
+                    b.HasOne("Shared.Models.DataBaseModels.Account.Account", "Parent")
+                        .WithMany("SubAccounts")
+                        .HasForeignKey("ParentId");
+
+                    b.Navigation("Parent");
+                });
+
+            modelBuilder.Entity("Shared.Models.DataBaseModels.Inventory.Inventory", b =>
+                {
+                    b.HasOne("Shared.Models.DataBaseModels.Account.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId");
+
+                    b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("Shared.Models.DataBaseModels.Inventory.Product", b =>
+                {
+                    b.HasOne("Shared.Models.DataBaseModels.Inventory.Inventory", "Inventory")
+                        .WithMany("Products")
+                        .HasForeignKey("InventoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Inventory");
                 });
 
             modelBuilder.Entity("Shared.Models.DataBaseModels.Sales.Sales", b =>
@@ -338,6 +495,16 @@ namespace DataBaseManager.Migrations.Sales
                     b.Navigation("Price");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Shared.Models.DataBaseModels.Account.Account", b =>
+                {
+                    b.Navigation("SubAccounts");
+                });
+
+            modelBuilder.Entity("Shared.Models.DataBaseModels.Inventory.Inventory", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

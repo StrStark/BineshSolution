@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Shared.Models.DataBaseModels.Sales;
 
@@ -19,6 +20,7 @@ public class Product
     public bool ProductIsActive { get; set; }
 
     public Guid InventoryId{ get; set; }
+    [JsonIgnore]
     public Inventory Inventory { get; set; } = default!;
     public DateTime EnteryDate { get; set; } = default!;
     public DateTime ExitDate { get; set; } = default!;

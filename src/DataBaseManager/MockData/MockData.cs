@@ -9,7 +9,11 @@ public static class MockData
 {
     public static List<Sales> MockSalesData = new()
     {
-
+        new Sales
+        {
+            ProductId = Guid.Parse("ecd5604e-bcae-4ec5-aa46-e25d07de6ad2"),
+            
+        }
     };
     public static List<Inventory> MockInventoryData = new()
     {
@@ -28,7 +32,6 @@ public static class MockData
             AffectStockCalculation = true,
             UseAverageOrFIFOFromYearStart = false,
             Manager = "",
-            AccountId = Guid.Empty,
             Products = new()
             {
                 new Carpet { DesignName = "گلستان",Color = "سرمه ای",BorderColor = "سفید" ,DesignCode ="ترانه(کد136) ",Shoulder = "700",Density = "2550",Size = "0.8*0.5",WeavePattern = "پادری",ColorCount = 8,genus = "آکریلیک",Grade = "درجه 1",ProjectName = "پروژه  روی بافت نمایشگاه ",Manufacturer = "+340",ColorPalette = "C14",WeaveType = "برجسته",Buyer = "شرکت ساغر",DeviceNumber = "H",ProductCode = "0118808701127131510116020100101070591130015",ProductDesc = "فرش 4*3 _ گلستان _ 1000 شانه آکریلیک تراکم1800 8رنگ _ درجه 1 +400" ,ProductDesc2 = " فرش گلستان 4*3 _ _ . آکریلیک 1000 شانه تراکم1800 +400 .",ProductDescBarcode = "", ProductDescLatin = "", ProductIsActive = true, Cost = 240000000, SellingPrice = 240000000,},

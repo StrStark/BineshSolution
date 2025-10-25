@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Security.Cryptography.X509Certificates;
+using AutoMapper;
+using Shared.Mapper;
 
 namespace DataBaseManager;
 
@@ -32,6 +34,11 @@ public static partial class Program
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
+
+        builder.Services.AddAutoMapper(cfg =>
+        {
+            cfg.AddProfile<InventoryMappingProfile>();
+        });
 
         services.AddDbContext<AccountingDbContext>(op => op.UseNpgsql(ConnectionString));
         services.AddDbContext<SalesDbContext>(op => op.UseNpgsql(ConnectionString));

@@ -89,7 +89,10 @@ namespace DataBaseManager.Migrations.Inventory
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("Account");
+                    b.ToTable("Accounts", null, t =>
+                        {
+                            t.ExcludeFromMigrations();
+                        });
                 });
 
             modelBuilder.Entity("Shared.Models.DataBaseModels.Inventory.Inventory", b =>

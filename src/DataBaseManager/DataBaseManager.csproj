@@ -27,6 +27,7 @@
   <ItemGroup>
     <Folder Include="DataBaseCore\" />
     <Folder Include="Migrations\" />
+    <Folder Include="QuerySystem\" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shared.Models.DataBaseModels.Account;
 using Shared.Models.DataBaseModels.Inventory;
 
 namespace DataBaseManager.DbContexts
@@ -22,6 +23,12 @@ namespace DataBaseManager.DbContexts
             modelBuilder.Entity<Rug>().ToTable("Rugs");
             modelBuilder.Entity<RawMaterial>().ToTable("RawMaterials");
 
+            modelBuilder.Entity<Account>(a =>
+            {
+                a.ToTable("Accounts", t => t.ExcludeFromMigrations());
+                a.HasKey(a => a.ID);
+            });
+
             modelBuilder.Entity<Inventory>(I =>
             {
                 I.HasKey(x => x.Id);
@@ -32,17 +39,15 @@ namespace DataBaseManager.DbContexts
                 I.Property(e => e.Address).HasMaxLength(500);
                 I.Property(e => e.Manager).HasMaxLength(200);
 
-                I.HasOne(e=>e.Account)
+                I.HasOne(e => e.Account)
                  .WithMany()
-                 .HasForeignKey(e=>e.AccountId)
-                 .OnDelete(DeleteBehavior.Cascade)
-                 .IsRequired(false); // there is a damn problem here !!!!!!!!!!!!!!!!!!!
+                 .HasForeignKey(e => e.AccountId)
+                 .OnDelete(DeleteBehavior.Cascade);
 
                 I.HasMany(i => i.Products)
                  .WithOne(p=> p.Inventory)
                  .HasForeignKey(p => p .InventoryId)
                  .OnDelete(DeleteBehavior.Restrict);
-
 
             });
             modelBuilder.Entity<Product>(e =>
