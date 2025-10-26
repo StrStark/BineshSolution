@@ -15,7 +15,7 @@ public class Customer
     public Person Person { get; set; } = default!;
    
     public bool Active { get; set; }
-    public ICostumerType Type{ get; set; }
+    public ICustumerType Type{ get; set; }
     public string? Desc { get; set; }
     public float PaymentReliability { get; set; }
 }

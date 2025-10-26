@@ -54,7 +54,7 @@ namespace DataBaseManager.DbContexts
                 e.HasKey(r => r.Id);
                 e.Property(r => r.Id).HasDefaultValueSql("gen_random_uuid()");
 
-                e.Property(r => r.Country).HasMaxLength(100);
+                e.Property(r => r.Country).HasMaxLength(500);
                 e.Property(r => r.City).HasMaxLength(100);
                 e.Property(r => r.CityRegion).HasMaxLength(100);
                 e.Property(r => r.Mahale).HasMaxLength(100);

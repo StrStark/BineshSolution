@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shared.Models.DataBaseModels.Costumers;
 using Shared.Models.DataBaseModels.Inventory;
 using Shared.Models.DataBaseModels.Sales;
 
@@ -16,6 +17,7 @@ public class SalesDbContext : DbContext
     public DbSet<Carpet> Carpets { get; set; } = default!;
     public DbSet<Rug> Rugs { get; set; } = default!;
     public DbSet<RawMaterial> RawMaterials { get; set; } = default!;
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

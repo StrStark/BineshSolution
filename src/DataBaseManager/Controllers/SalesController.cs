@@ -34,7 +34,7 @@ namespace DataBaseManager.Controllers
 
         }
         [HttpPost]
-        public async Task<ActionResult<ApiResponse>> AddSales([FromBody] SalesRecordAddingRequestDto request)
+        public async Task<ActionResult<ApiResponse>> AddSales([FromBody] SalesRecordAddingRequestDto request) // needs removing...
         {
             var transition = await _salesDbContext.Database.BeginTransactionAsync();
             try
@@ -57,7 +57,7 @@ namespace DataBaseManager.Controllers
                         Request = request.InvoiceRequest,
                         invoice = request.InvoiceFlag,
                         DocNumber = request.DocNumber,
-                        Counterparty = request.Counterparty
+                       // Counterparty = request.Counterparty
                     },
 
                     Price = new Price
@@ -91,30 +91,36 @@ namespace DataBaseManager.Controllers
                 await transition.DisposeAsync();
             }
         }
-        [HttpGet]
-        public async Task<ActionResult<ApiResponse<List<Sales>>>> GetAllSales() // Get the sales Dto Right For distinguishing the rug , carpet or raw material for the sales returning .... 
-        {
+        [HttpPost]
+        public async Task<ActionResult<ApiResponse<List<SalesPageResponsDto>>>> GetAllSales([FromBody] SalesPageRequestDto request) 
+        { 
             var transition = await _salesDbContext.Database.BeginTransactionAsync();
             try
             {
-                var sales = await _salesDbContext.Sales
-                            .Include(s => s.Product)
-                            .Include(s => s.Invoice)
-                            .Include(s => s.Price)  
-                            .ToListAsync();
-                var count = await _salesDbContext.Sales.CountAsync();
+                var item_sold = await _salesDbContext.Sales.Where(i => i.Date >= request.DateFilter.StartTime && i.Date <= request.DateFilter.EndTime).ToListAsync();
+
+                var respons = new SalesPageResponsDto
+                {
+                    SalesSummary = new FinancialSummaryDto
+                    {
+                        SoldItems= new List<SoldItem>
+                        {
+
+                        }
+                    }
+                };
+
 
 
 
                 await transition.CommitAsync();
-
-                return ApiResponse<List<Sales>>.Success("Sales added successfully", System.Net.HttpStatusCode.OK , sales);
+                return ApiResponse<List<SalesPageResponsDto>>.Success("Sales added successfully", System.Net.HttpStatusCode.OK );
             }
             catch (Exception ex)
             {
                 await transition.RollbackAsync();
                 _logger.LogError(ex, "Error adding sales");
-                return ApiResponse<List<Sales>>.Fail("Failed to add sales", System.Net.HttpStatusCode.InternalServerError);
+                return ApiResponse<List<SalesPageResponsDto>>.Fail("Failed to add sales", System.Net.HttpStatusCode.InternalServerError);
             }
             finally
             {

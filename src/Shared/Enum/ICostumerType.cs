@@ -1,6 +1,6 @@
 ﻿namespace Shared.Enum;
 
-public enum ICostumerType
+public enum ICustumerType
 {
     None,
     MaghazeDar,

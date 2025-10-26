@@ -43,7 +43,7 @@ public static partial class Program
         services.AddDbContext<AccountingDbContext>(op => op.UseNpgsql(ConnectionString));
         services.AddDbContext<SalesDbContext>(op => op.UseNpgsql(ConnectionString));
         services.AddDbContext<InventoryDbContext>(op => op.UseNpgsql(ConnectionString));
-        services.AddDbContext<CustomerDbContext>(op => op.UseNpgsql(ConnectionString));
+        services.AddDbContext<CustomerDbContext>(options => options.UseNpgsql(ConnectionString, x => x.MigrationsAssembly("DataBaseManager")));
 
         //services.AddScoped<AccountingDbContext>();
         //services.AddScoped<ITokenService, TokenService>();
