@@ -35,7 +35,7 @@ namespace Shared.Dtos.Sales
     public class CategorizedSales
     {
         public List<CustomerCategorizedSalesDto> Sales { get; set; } = default!;
-     }
+    }
     public class CustomerCategorizedSalesDto
     {
         public List<CategorizedCustmer> CategorizedSales { get; set; } = default!;
@@ -52,11 +52,13 @@ namespace Shared.Dtos.Sales
         public List<SoldItem> SoldItems { get; set; } = default!;
         public List<ReturnItem> ReturnItems { get; set; } = default!;
 
-        public int Count => SoldItems.Count + ReturnItems.Count;
-        public Int64 TotalSales => SoldItems.Sum(item => item.Value) - ReturnItems.Sum(item => item.Value);
-        public Int64 ReturnTotal => ReturnItems.Sum(item => item.Value);
-        public Int64 OffSales { get; set; }
-        public Int64 NewModelsSales { get; set; }
+        public int Count { get; set; }
+        public Int64 Sum { get; set; }
+
+        public Card TotalSales { get; set  } = default!;
+        public Card ReturnTotal { get; set; } = default!;
+        public Card OffSales { get; set; } = default!;
+        public Card NewModelsSales { get; set; } = default!;
     }
 
     public class SoldItem
@@ -68,7 +70,11 @@ namespace Shared.Dtos.Sales
     {
         public string? Type { get; set; } // we will use enums after...
         public Int64 Value { get; set; }
-
+    }
+    public class Card
+    {
+        public Int64 Value { get; set; }
+        public float Growth { get; set; }
     }
 }
 

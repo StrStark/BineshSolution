@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using DataBaseManager.DbContexts;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shared.Dtos;
 using Shared.Dtos.Sales;
+using Shared.Models.DataBaseModels.Account;
 using Shared.Models.DataBaseModels.Sales;
 
 namespace DataBaseManager.Controllers
@@ -12,22 +14,18 @@ namespace DataBaseManager.Controllers
     [Route("api/[controller]/[action]")]
     public class SalesController : Controller
     {
-        private readonly AccountingDbContext _AccountingDbContext;
-        private readonly CustomerDbContext _CustomerDbContext;
-        private readonly InventoryDbContext _inventoryDbContext;
-        private readonly SalesDbContext _salesDbContext;
+       
+        private readonly ApplicationDbContext _appDbContext;
 
         private readonly ILogger<Test> _logger;
 
         private readonly IMapper _mapper;
 
 
-        public SalesController(AccountingDbContext AccountingDbContext, CustomerDbContext CustomerDbContext, InventoryDbContext inventoryDbContext, SalesDbContext salesDbContext, ILogger<Test> logger, IMapper mapper)
+        public SalesController(ApplicationDbContext appDbContext, ILogger<Test> logger, IMapper mapper)
         {
-            _AccountingDbContext = AccountingDbContext;
-            _CustomerDbContext = CustomerDbContext;
-            _salesDbContext = salesDbContext;
-            _inventoryDbContext = inventoryDbContext;
+
+            _appDbContext = appDbContext;
 
             _logger = logger;
             _mapper = mapper;
@@ -36,11 +34,11 @@ namespace DataBaseManager.Controllers
         [HttpPost]
         public async Task<ActionResult<ApiResponse>> AddSales([FromBody] SalesRecordAddingRequestDto request) // needs removing...
         {
-            var transition = await _salesDbContext.Database.BeginTransactionAsync();
+            var transition = await _appDbContext.Database.BeginTransactionAsync();
             try
                 {
 
-                var product = await _inventoryDbContext.Products
+                var product = await _appDbContext.Products
                 .FirstOrDefaultAsync(p => p.Id == request.ProductId);
 
                 if (product == null)
@@ -74,8 +72,8 @@ namespace DataBaseManager.Controllers
                     RequestNumber = request.RequestNumber,
                     DeliveredQuantity = request.DeliveredQuantity
                 };
-                await _salesDbContext.Sales.AddAsync(sale);
-                var resualt = await _salesDbContext.SaveChangesAsync();
+                await _appDbContext.Sales.AddAsync(sale);
+                var resualt = await _appDbContext.SaveChangesAsync();
 
                 await transition.CommitAsync();
                 return ApiResponse.Success("Sales added successfully", System.Net.HttpStatusCode.OK);
@@ -94,19 +92,45 @@ namespace DataBaseManager.Controllers
         [HttpPost]
         public async Task<ActionResult<ApiResponse<List<SalesPageResponsDto>>>> GetAllSales([FromBody] SalesPageRequestDto request) 
         { 
-            var transition = await _salesDbContext.Database.BeginTransactionAsync();
+            var transition = await _appDbContext.Database.BeginTransactionAsync();
             try
             {
-                var item_sold = await _salesDbContext.Sales.Where(i => i.Date >= request.DateFilter.StartTime && i.Date <= request.DateFilter.EndTime).ToListAsync();
+                var duration = request.DateFilter.EndTime - request.DateFilter.StartTime;
+                
+                
+                var item_sold = await _appDbContext.Sales.Where(i => i.Date >= request.DateFilter.StartTime && i.Date <= request.DateFilter.EndTime).Include(p=> p.Price).Include(i=>i.Invoice).Include(p=>p.Product).ToListAsync();
+                var item_sold_befor = await _appDbContext.Sales.Where(i => i.Date >= (request.DateFilter.StartTime - duration) && i.Date <= request.DateFilter.StartTime).Include(p => p.Price).Include(i => i.Invoice).Include(p => p.Product).ToListAsync();
+                
+                
+                var returnd_item = await _appDbContext.Accounts.Where(i=> i.Name == "J برگشت از فروش بازرگانی فرش" && (i.Date>=request.DateFilter.StartTime && i.Date<=request.DateFilter.EndTime) ).ToListAsync();
+                var soldItem = item_sold.Select(p => new SoldItem
+                {
+                    Type = p.Product.GetType().ToString(),
+                    Value = p.Price.Receipt
+                }).ToList();
+                var returnItem = (await Task.WhenAll(returnd_item.Select(async p =>
+                {
+                    var num = int.Parse(p.ArticleDescription!.Split(" ")[1]);
+                    return new ReturnItem
+                    {
+                        Type = (await _appDbContext.Products.Where(p =>
+                        p.ProductCode == (_appDbContext.Receipts.Where(R => R.number == num).FirstOrDefault()!.ProductCode)).FirstOrDefaultAsync())?.GetType().ToString()!,
+                        Value = p.Debit
+                    };
+                }))).ToList();
 
                 var respons = new SalesPageResponsDto
                 {
                     SalesSummary = new FinancialSummaryDto
                     {
-                        SoldItems= new List<SoldItem>
+                        SoldItems = soldItem,
+                        ReturnItems = returnItem,
+                        TotalSales = new Card
                         {
-
+                            Value = soldItem.Sum(x=>x.Value),
+                            Growth = ((soldItem.Sum(x=>x.Value) - item_sold_befor.Sum(x=>x.Price.Receipt)) / item_sold_befor.Sum(x => x.Price.Receipt))
                         }
+                        //......
                     }
                 };
 

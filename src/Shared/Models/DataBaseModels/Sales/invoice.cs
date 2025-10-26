@@ -16,6 +16,7 @@ public class Invoice
     public bool Request { get; set; }
     public bool invoice { get; set; }
     public int DocNumber { get; set; }
+
     public Guid CounterpartyId { get; set; }
     public Customer Counterparty { get; set; } = default!;
 }

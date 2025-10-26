@@ -24,7 +24,6 @@ public class Account
     public Int64 Debit { get; set; }
     public Int64 Credit { get; set; }
 
-
     public int inflection { get; set; }
     public int Article { get; set; }
     public DateTime Date { get; set; }

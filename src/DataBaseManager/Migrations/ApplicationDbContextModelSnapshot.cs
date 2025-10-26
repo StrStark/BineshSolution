@@ -8,10 +8,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DataBaseManager.Migrations.Sales
+namespace DataBaseManager.Migrations
 {
-    [DbContext(typeof(SalesDbContext))]
-    partial class SalesDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ApplicationDbContext))]
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -26,13 +26,15 @@ namespace DataBaseManager.Migrations.Sales
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<int>("Article")
                         .HasColumnType("integer");
 
                     b.Property<string>("ArticleDescription")
-                        .HasColumnType("text");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<string>("Code")
                         .HasColumnType("text");
@@ -59,16 +61,19 @@ namespace DataBaseManager.Migrations.Sales
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("OperationName")
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<Guid?>("ParentId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("SeriesNumber")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<long>("SumCredit")
                         .HasColumnType("bigint");
@@ -80,23 +85,122 @@ namespace DataBaseManager.Migrations.Sales
                         .HasColumnType("integer");
 
                     b.Property<string>("chequeCode")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<int>("inflection")
                         .HasColumnType("integer");
 
                     b.HasKey("ID");
 
+                    b.HasIndex("Name");
+
                     b.HasIndex("ParentId");
 
-                    b.ToTable("Account");
+                    b.ToTable("Accounts");
+                });
+
+            modelBuilder.Entity("Shared.Models.DataBaseModels.Costumers.Customer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("gen_random_uuid()");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Desc")
+                        .HasColumnType("text");
+
+                    b.Property<float>("PaymentReliability")
+                        .HasColumnType("real");
+
+                    b.Property<Guid>("PersonId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("Shared.Models.DataBaseModels.Costumers.Person", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("gen_random_uuid()");
+
+                    b.Property<string>("Family")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("Fax")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<Guid>("RegionId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RegionId");
+
+                    b.ToTable("Persons");
+                });
+
+            modelBuilder.Entity("Shared.Models.DataBaseModels.Costumers.Region", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("gen_random_uuid()");
+
+                    b.Property<string>("City")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("CityRegion")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Country")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Mahale")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Regions", (string)null);
                 });
 
             modelBuilder.Entity("Shared.Models.DataBaseModels.Inventory.Inventory", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<Guid?>("AccountId")
                         .HasColumnType("uuid");
@@ -108,7 +212,8 @@ namespace DataBaseManager.Migrations.Sales
                         .HasColumnType("boolean");
 
                     b.Property<string>("Address")
-                        .HasColumnType("text");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<bool>("AffectProductionRequestBySalesOrder")
                         .HasColumnType("boolean");
@@ -126,7 +231,8 @@ namespace DataBaseManager.Migrations.Sales
                         .HasColumnType("integer");
 
                     b.Property<string>("Description")
-                        .HasColumnType("text");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<bool>("Identifiable")
                         .HasColumnType("boolean");
@@ -141,7 +247,8 @@ namespace DataBaseManager.Migrations.Sales
                         .HasColumnType("boolean");
 
                     b.Property<string>("Manager")
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<bool>("UseAverageOrFIFOFromYearStart")
                         .HasColumnType("boolean");
@@ -150,7 +257,7 @@ namespace DataBaseManager.Migrations.Sales
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("Inventory");
+                    b.ToTable("Inventories");
                 });
 
             modelBuilder.Entity("Shared.Models.DataBaseModels.Inventory.Product", b =>
@@ -206,7 +313,7 @@ namespace DataBaseManager.Migrations.Sales
 
                     b.HasIndex("InventoryId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
 
                     b.UseTpcMappingStrategy();
                 });
@@ -218,9 +325,8 @@ namespace DataBaseManager.Migrations.Sales
                         .HasColumnType("uuid")
                         .HasDefaultValueSql("gen_random_uuid()");
 
-                    b.Property<string>("Counterparty")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                    b.Property<Guid>("CounterpartyId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("DocNumber")
                         .HasColumnType("integer");
@@ -236,6 +342,8 @@ namespace DataBaseManager.Migrations.Sales
                         .HasColumnType("boolean");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CounterpartyId");
 
                     b.ToTable("Invoices");
                 });
@@ -445,16 +553,40 @@ namespace DataBaseManager.Migrations.Sales
                 {
                     b.HasOne("Shared.Models.DataBaseModels.Account.Account", "Parent")
                         .WithMany("SubAccounts")
-                        .HasForeignKey("ParentId");
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Parent");
+                });
+
+            modelBuilder.Entity("Shared.Models.DataBaseModels.Costumers.Customer", b =>
+                {
+                    b.HasOne("Shared.Models.DataBaseModels.Costumers.Person", "Person")
+                        .WithMany()
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Person");
+                });
+
+            modelBuilder.Entity("Shared.Models.DataBaseModels.Costumers.Person", b =>
+                {
+                    b.HasOne("Shared.Models.DataBaseModels.Costumers.Region", "Region")
+                        .WithMany()
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Region");
                 });
 
             modelBuilder.Entity("Shared.Models.DataBaseModels.Inventory.Inventory", b =>
                 {
                     b.HasOne("Shared.Models.DataBaseModels.Account.Account", "Account")
                         .WithMany()
-                        .HasForeignKey("AccountId");
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Account");
                 });
@@ -464,10 +596,21 @@ namespace DataBaseManager.Migrations.Sales
                     b.HasOne("Shared.Models.DataBaseModels.Inventory.Inventory", "Inventory")
                         .WithMany("Products")
                         .HasForeignKey("InventoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Inventory");
+                });
+
+            modelBuilder.Entity("Shared.Models.DataBaseModels.Sales.Invoice", b =>
+                {
+                    b.HasOne("Shared.Models.DataBaseModels.Costumers.Customer", "Counterparty")
+                        .WithMany()
+                        .HasForeignKey("CounterpartyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Counterparty");
                 });
 
             modelBuilder.Entity("Shared.Models.DataBaseModels.Sales.Sales", b =>

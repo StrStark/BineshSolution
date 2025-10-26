@@ -40,11 +40,8 @@ public static partial class Program
             cfg.AddProfile<InventoryMappingProfile>();
         });
 
-        services.AddDbContext<AccountingDbContext>(op => op.UseNpgsql(ConnectionString));
-        services.AddDbContext<SalesDbContext>(op => op.UseNpgsql(ConnectionString));
-        services.AddDbContext<InventoryDbContext>(op => op.UseNpgsql(ConnectionString));
-        services.AddDbContext<CustomerDbContext>(options => options.UseNpgsql(ConnectionString, x => x.MigrationsAssembly("DataBaseManager")));
-
+        services.AddDbContext<ApplicationDbContext>(op => op.UseNpgsql(ConnectionString));
+       
         //services.AddScoped<AccountingDbContext>();
         //services.AddScoped<ITokenService, TokenService>();
 

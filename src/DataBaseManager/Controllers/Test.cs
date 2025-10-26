@@ -18,22 +18,17 @@ namespace DataBaseManager.Controllers
     [Route("api/[controller]/[action]")]
     public class Test : Controller
     {
-        private readonly AccountingDbContext _AccountingDbContext;
-        private readonly CustomerDbContext _CustomerDbContext;
-        private readonly InventoryDbContext _inventoryDbContext;
-        private readonly SalesDbContext _salesDbContext;
+      
+        private readonly ApplicationDbContext _salesDbContext;
         
         private readonly ILogger<Test> _logger;
 
         private readonly IMapper _mapper;
 
 
-        public Test(AccountingDbContext AccountingDbContext, CustomerDbContext CustomerDbContext, InventoryDbContext inventoryDbContext, SalesDbContext salesDbContext, ILogger<Test> logger , IMapper mapper)
+        public Test(ApplicationDbContext salesDbContext, ILogger<Test> logger , IMapper mapper)
         {
-            _AccountingDbContext = AccountingDbContext;
-            _CustomerDbContext = CustomerDbContext;
             _salesDbContext = salesDbContext;
-            _inventoryDbContext = inventoryDbContext;
              
             _logger = logger;
             _mapper = mapper;
@@ -43,10 +38,10 @@ namespace DataBaseManager.Controllers
         [HttpGet]
         public async Task<ActionResult<ApiResponse>> FillMockAccountingData()
         {
-            using var transaction = await _AccountingDbContext.Database.BeginTransactionAsync();
+            using var transaction = await _salesDbContext.Database.BeginTransactionAsync();
             try
             {
-                if (await _AccountingDbContext.Accounts.AnyAsync())
+                if (await _salesDbContext.Accounts.AnyAsync())
                 {
                     _logger.LogInformation("Accounts already exist in database. Skipping seeding.");
                     return Ok("Accounts already exist in database.");
@@ -56,7 +51,7 @@ namespace DataBaseManager.Controllers
                 {
                     foreach (var acc in accounts)
                     {
-                        _AccountingDbContext.Accounts.Add(acc);
+                        _salesDbContext.Accounts.Add(acc);
 
                         if (acc.SubAccounts != null && acc.SubAccounts.Count > 0)
                             AttachAccounts(acc.SubAccounts);
@@ -65,7 +60,7 @@ namespace DataBaseManager.Controllers
 
                 AttachAccounts(MockData.MockData.MockAccountData);
 
-                var result = await _AccountingDbContext.SaveChangesAsync();
+                var result = await _salesDbContext.SaveChangesAsync();
                 await transaction.CommitAsync();
 
                 _logger.LogInformation("Mock accounts seeded successfully ({count} rows).", result);
@@ -82,20 +77,20 @@ namespace DataBaseManager.Controllers
         [HttpGet]
         public async Task<ActionResult<ApiResponse>> FillMockInventoryData()
         {
-            await using var transaction = await _inventoryDbContext.Database.BeginTransactionAsync();
+            await using var transaction = await _salesDbContext.Database.BeginTransactionAsync();
             try
             {
-                if (await _inventoryDbContext.Inventories.AnyAsync())
+                if (await _salesDbContext.Inventories.AnyAsync())
                 {
                     _logger.LogInformation("Inventories already exist in database. Skipping seeding.");
                     return Ok("Inventories already exist in database.");
                 }
                 foreach (var inventory in MockData.MockData.MockInventoryData)
                 {
-                    _inventoryDbContext.Inventories.Add(inventory);
+                    _salesDbContext.Inventories.Add(inventory);
                 }
 
-                var result = await _inventoryDbContext.SaveChangesAsync();
+                var result = await _salesDbContext.SaveChangesAsync();
                 await transaction.CommitAsync();
 
                 _logger.LogInformation("Mock inventories seeded successfully ({count} rows).", result);
@@ -112,10 +107,10 @@ namespace DataBaseManager.Controllers
         [HttpGet]
         public async Task<ActionResult<ApiResponse<InventoryItemResponseDto?>>> GetInventory()
         {
-            using var transaction = await _inventoryDbContext.Database.BeginTransactionAsync();
+            using var transaction = await _salesDbContext.Database.BeginTransactionAsync();
             try
             {
-                var inventory = await _inventoryDbContext.Inventories
+                var inventory = await _salesDbContext.Inventories
                                                          .Include(i => i.Products)
                                                          .FirstOrDefaultAsync(i => i.Code == 31);
 
@@ -132,19 +127,6 @@ namespace DataBaseManager.Controllers
                 await transaction.RollbackAsync();
                 return ApiResponse<InventoryItemResponseDto?>.Fail($"fetch failed... \n message : {ex.Message}" , HttpStatusCode.BadRequest);
             }
-        }
-        [HttpGet]
-        public async Task<ActionResult<ApiResponse<Sales?>>> GetSales([FromBody] DateFilter dateFilter)
-        {
-            await using var transaction = await _salesDbContext.Database.BeginTransactionAsync();
-            try
-            {
-
-            }
-            catch(Exception ex)
-            {
-            }
-            return Ok();
         }
     }
 }
