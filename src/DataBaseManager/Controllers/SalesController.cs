@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shared.Dtos;
 using Shared.Dtos.Sales;
+using Shared.Enum;
 using Shared.Models.DataBaseModels.Account;
 using Shared.Models.DataBaseModels.Sales;
+using System.Linq;
 
 namespace DataBaseManager.Controllers
 {
@@ -90,7 +92,7 @@ namespace DataBaseManager.Controllers
             }
         }
         [HttpPost]
-        public async Task<ActionResult<ApiResponse<List<SalesPageResponsDto>>>> GetAllSales([FromBody] SalesPageRequestDto request) 
+        public async Task<ActionResult<ApiResponse<SalesPageResponsDto>>> GetAllSales([FromBody] SalesPageRequestDto request) 
         { 
             var transition = await _appDbContext.Database.BeginTransactionAsync();
             try
@@ -103,6 +105,8 @@ namespace DataBaseManager.Controllers
                 
                 
                 var returnd_item = await _appDbContext.Accounts.Where(i=> i.Name == "J برگشت از فروش بازرگانی فرش" && (i.Date>=request.DateFilter.StartTime && i.Date<=request.DateFilter.EndTime) ).ToListAsync();
+                var returnd_item_before = await _appDbContext.Accounts.Where(i => i.Name == "J برگشت از فروش بازرگانی فرش" && (i.Date >= (request.DateFilter.StartTime - duration) && i.Date <= request.DateFilter.StartTime)).ToListAsync();
+                
                 var soldItem = item_sold.Select(p => new SoldItem
                 {
                     Type = p.Product.GetType().ToString(),
@@ -119,18 +123,48 @@ namespace DataBaseManager.Controllers
                     };
                 }))).ToList();
 
+                CustomerCategorizedSalesDto test = await _appDbContext.Sales.Where(i => i.Date >= request.DateFilter.StartTime && i.Date <= (request.DateFilter.StartTime + request.DateFilter.TimeFrameUnit switch
+                {
+                    TimeFrameUnit.Day => TimeSpan.FromDays(1),
+                    TimeFrameUnit.Week => TimeSpan.FromDays(7),
+                    TimeFrameUnit.Month => TimeSpan.FromDays(30),
+                    TimeFrameUnit.Year => TimeSpan.FromDays(365),
+                    _ => TimeSpan.Zero
+                })).GroupBy(c =>c.Invoice.); // group them by there category ...
+
+
                 var respons = new SalesPageResponsDto
                 {
                     SalesSummary = new FinancialSummaryDto
                     {
                         SoldItems = soldItem,
                         ReturnItems = returnItem,
+
+                        Sum = soldItem.Sum(x=>x.Value) + returnItem.Sum(x=>x.Value),
+                        Count = soldItem.Count + returnItem.Count,
+
                         TotalSales = new Card
                         {
                             Value = soldItem.Sum(x=>x.Value),
                             Growth = ((soldItem.Sum(x=>x.Value) - item_sold_befor.Sum(x=>x.Price.Receipt)) / item_sold_befor.Sum(x => x.Price.Receipt))
+                        },
+                        ReturnTotal = new Card
+                        {
+                            Value = returnItem.Sum(x=>x.Value),
+                            Growth = ((returnItem.Sum(x=>x.Value) - returnd_item_before.Sum(x => x.Debit)) / returnd_item_before.Sum(x => x.Debit))
+                        },
+                        NewModelsSales= new Card
+                        {
+
+                        },
+                        OffSales = new Card
+                        {
+
                         }
-                        //......
+                    },
+                    CategorizedSales = new CategorizedSales // fill this using the quereis ....
+                    {
+                        Sales = null
                     }
                 };
 
@@ -138,13 +172,13 @@ namespace DataBaseManager.Controllers
 
 
                 await transition.CommitAsync();
-                return ApiResponse<List<SalesPageResponsDto>>.Success("Sales added successfully", System.Net.HttpStatusCode.OK );
+                return ApiResponse<SalesPageResponsDto>.Success("Sales added successfully", System.Net.HttpStatusCode.OK , respons);
             }
             catch (Exception ex)
             {
                 await transition.RollbackAsync();
                 _logger.LogError(ex, "Error adding sales");
-                return ApiResponse<List<SalesPageResponsDto>>.Fail("Failed to add sales", System.Net.HttpStatusCode.InternalServerError);
+                return ApiResponse<SalesPageResponsDto>.Fail("Failed to add sales", System.Net.HttpStatusCode.InternalServerError);
             }
             finally
             {

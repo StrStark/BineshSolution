@@ -55,7 +55,7 @@ namespace Shared.Dtos.Sales
         public int Count { get; set; }
         public Int64 Sum { get; set; }
 
-        public Card TotalSales { get; set  } = default!;
+        public Card TotalSales { get; set;  } = default!;
         public Card ReturnTotal { get; set; } = default!;
         public Card OffSales { get; set; } = default!;
         public Card NewModelsSales { get; set; } = default!;
