@@ -1,11 +1,12 @@
-﻿using DataBaseManager.DbContexts;
+﻿using AutoMapper;
+using DataBaseManager.DbContexts;
 using MassTransit;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using System.Security.Cryptography.X509Certificates;
-using AutoMapper;
 using Shared.Mapper;
+using System.Security.Cryptography.X509Certificates;
 
 namespace DataBaseManager;
 
@@ -31,17 +32,16 @@ public static partial class Program
         //services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
 
 
-        services.AddControllers();
+        services.AddControllers().AddOData(options => options.EnableQueryFeatures());
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
-
-        builder.Services.AddAutoMapper(cfg =>
+        services.AddAutoMapper(cfg =>
         {
             cfg.AddProfile<InventoryMappingProfile>();
+            cfg.AddProfile<SalesMappingProfile>();
         });
 
         services.AddDbContext<ApplicationDbContext>(op => op.UseNpgsql(ConnectionString));
-       
         //services.AddScoped<AccountingDbContext>();
         //services.AddScoped<ITokenService, TokenService>();
 

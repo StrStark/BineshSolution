@@ -1,4 +1,7 @@
-﻿namespace DataBaseManager;
+﻿using AutoMapper;
+using DataBaseManager.Extensions;
+
+namespace DataBaseManager;
 
 public static partial class Program
 {
@@ -13,6 +16,10 @@ public static partial class Program
         //    app.UseSwagger();
         //    app.UseSwaggerUI();
         //}
+
+        var mapper = app.Services.GetRequiredService<IMapper>();
+        QueryableProjectionExtensions.Initialize(mapper);
+
         app.UseSwagger();
         app.UseSwaggerUI();
         app.UseHttpsRedirection();
