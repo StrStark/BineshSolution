@@ -1,9 +1,9 @@
-﻿using IdentityService.Models;
+﻿using DataBaseManager.Models;
 using Shared.Dtos.User;
 using Shared.Enum;
 using Twilio.Types;
 
-namespace IdentityService.Mapper;
+namespace DataBaseManager.Mapper;
 
 public static class UserMapper
 {

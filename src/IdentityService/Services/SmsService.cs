@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using Twilio.Rest.Api.V2010.Account;
 
-namespace IdentityService.Services;
+namespace DataBaseManager.Services;
 
 public partial class SmsService 
 {

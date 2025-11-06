@@ -5,7 +5,7 @@ using Shared;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace IdentityService.Service;
+namespace DataBaseManager.Service;
 
 public class AppSecureJwtDataFormat(AppSettings appSettings, TokenValidationParameters validationParameters)
     : ISecureDataFormat<AuthenticationTicket>

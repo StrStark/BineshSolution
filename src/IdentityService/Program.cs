@@ -1,5 +1,5 @@
 
-namespace IdentityService;
+namespace DataBaseManager;
 
 public partial class Program
 {

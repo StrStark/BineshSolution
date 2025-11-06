@@ -1,7 +1,7 @@
-﻿using Shared.Models.DataBaseModels.Account;
-using Shared.Models.DataBaseModels.Costumers;
-using Shared.Models.DataBaseModels.Inventory;
-using Shared.Models.DataBaseModels.Sales;
+﻿using DataBaseManager.Models.DataBaseModels.Account;
+using DataBaseManager.Models.DataBaseModels.Costumers;
+using DataBaseManager.Models.DataBaseModels.Inventory;
+using DataBaseManager.Models.DataBaseModels.Sales;
 
 namespace DataBaseManager.MockData;
 

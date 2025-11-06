@@ -1,8 +1,9 @@
 ﻿
-using IdentityService.DbContext;
+using DataBaseManager.DbContext;
+using DataBaseManager.Models;
+using DataBaseManager.Service;
+using DataBaseManager.Services;
 using IdentityService.Models;
-using IdentityService.Service;
-using IdentityService.Services;
 using MassTransit;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,7 @@ using Shared;
 using System;
 using System.Security.Cryptography.X509Certificates;
 
-namespace IdentityService;
+namespace DataBaseManager;
 
 public static partial class Program
 {

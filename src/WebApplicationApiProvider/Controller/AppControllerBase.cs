@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DataBaseManager.Interfaces.Sales;
 using Microsoft.AspNetCore.Mvc;
 using Shared.DataBaseManagerControllerInterfaces.Sales;
 using WebApplicationApiProvider.Controller.Sales;

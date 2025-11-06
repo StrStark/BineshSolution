@@ -1,5 +1,5 @@
-﻿using IdentityService.Models;
-using IdentityService.Services;
+﻿using DataBaseManager.Models;
+using DataBaseManager.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Dtos;
@@ -9,11 +9,11 @@ using Humanizer;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.EntityFrameworkCore;
-using IdentityService.DbContext;
+using DataBaseManager.DbContext;
 using System.Net;
 using Shared.Dtos.User;
 
-namespace IdentityService.Controllers.AuthController
+namespace DataBaseManager.Controllers.AuthController
 {
     [ApiController]
     [Route("api/[controller]/[action]")]

@@ -1,5 +1,5 @@
-﻿using IdentityService.DbContext;
-using IdentityService.Models;
+﻿using DataBaseManager.DbContext;
+using DataBaseManager.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 
-namespace IdentityService.Services;
+namespace DataBaseManager.Services;
 
 public class TokenService : ITokenService
 {

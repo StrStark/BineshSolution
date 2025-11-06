@@ -8,15 +8,12 @@ public static partial class Program
         var env = app.Environment;
         var services = app.Services;
 
-        //if (env.IsDevelopment())
-        //{
-        //    app.UseSwagger();
-        //    app.UseSwaggerUI();
-        //}
+        if (env.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
 
-
-        app.UseSwagger();
-        app.UseSwaggerUI();
         app.UseHttpsRedirection();
         app.UseRouting();
 

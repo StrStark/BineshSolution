@@ -22,7 +22,7 @@ namespace DataBaseManager.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Shared.Models.DataBaseModels.Account.Account", b =>
+            modelBuilder.Entity("DataBaseManager.Models.DataBaseModels.Account.Account", b =>
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
@@ -100,7 +100,7 @@ namespace DataBaseManager.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("Shared.Models.DataBaseModels.Costumers.Customer", b =>
+            modelBuilder.Entity("DataBaseManager.Models.DataBaseModels.Costumers.Customer", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -130,7 +130,7 @@ namespace DataBaseManager.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Shared.Models.DataBaseModels.Costumers.Person", b =>
+            modelBuilder.Entity("DataBaseManager.Models.DataBaseModels.Costumers.Person", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -167,7 +167,7 @@ namespace DataBaseManager.Migrations
                     b.ToTable("Persons");
                 });
 
-            modelBuilder.Entity("Shared.Models.DataBaseModels.Costumers.Region", b =>
+            modelBuilder.Entity("DataBaseManager.Models.DataBaseModels.Costumers.Region", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -195,7 +195,7 @@ namespace DataBaseManager.Migrations
                     b.ToTable("Regions", (string)null);
                 });
 
-            modelBuilder.Entity("Shared.Models.DataBaseModels.Inventory.Inventory", b =>
+            modelBuilder.Entity("DataBaseManager.Models.DataBaseModels.Inventory.Inventory", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -260,7 +260,7 @@ namespace DataBaseManager.Migrations
                     b.ToTable("Inventories");
                 });
 
-            modelBuilder.Entity("Shared.Models.DataBaseModels.Inventory.Product", b =>
+            modelBuilder.Entity("DataBaseManager.Models.DataBaseModels.Inventory.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -318,7 +318,7 @@ namespace DataBaseManager.Migrations
                     b.UseTpcMappingStrategy();
                 });
 
-            modelBuilder.Entity("Shared.Models.DataBaseModels.Sales.Invoice", b =>
+            modelBuilder.Entity("DataBaseManager.Models.DataBaseModels.Sales.Invoice", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -348,7 +348,7 @@ namespace DataBaseManager.Migrations
                     b.ToTable("Invoices");
                 });
 
-            modelBuilder.Entity("Shared.Models.DataBaseModels.Sales.Price", b =>
+            modelBuilder.Entity("DataBaseManager.Models.DataBaseModels.Sales.Price", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -369,7 +369,7 @@ namespace DataBaseManager.Migrations
                     b.ToTable("Prices");
                 });
 
-            modelBuilder.Entity("Shared.Models.DataBaseModels.Sales.Sales", b =>
+            modelBuilder.Entity("DataBaseManager.Models.DataBaseModels.Sales.Sales", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -417,9 +417,9 @@ namespace DataBaseManager.Migrations
                     b.ToTable("Sales");
                 });
 
-            modelBuilder.Entity("Shared.Models.DataBaseModels.Inventory.Carpet", b =>
+            modelBuilder.Entity("DataBaseManager.Models.DataBaseModels.Inventory.Carpet", b =>
                 {
-                    b.HasBaseType("Shared.Models.DataBaseModels.Inventory.Product");
+                    b.HasBaseType("DataBaseManager.Models.DataBaseModels.Inventory.Product");
 
                     b.Property<string>("BorderColor")
                         .HasColumnType("text");
@@ -472,9 +472,9 @@ namespace DataBaseManager.Migrations
                     b.ToTable("Carpets", (string)null);
                 });
 
-            modelBuilder.Entity("Shared.Models.DataBaseModels.Inventory.RawMaterial", b =>
+            modelBuilder.Entity("DataBaseManager.Models.DataBaseModels.Inventory.RawMaterial", b =>
                 {
-                    b.HasBaseType("Shared.Models.DataBaseModels.Inventory.Product");
+                    b.HasBaseType("DataBaseManager.Models.DataBaseModels.Inventory.Product");
 
                     b.Property<string>("Code")
                         .HasColumnType("text");
@@ -515,9 +515,9 @@ namespace DataBaseManager.Migrations
                     b.ToTable("RawMaterials", (string)null);
                 });
 
-            modelBuilder.Entity("Shared.Models.DataBaseModels.Inventory.Rug", b =>
+            modelBuilder.Entity("DataBaseManager.Models.DataBaseModels.Inventory.Rug", b =>
                 {
-                    b.HasBaseType("Shared.Models.DataBaseModels.Inventory.Product");
+                    b.HasBaseType("DataBaseManager.Models.DataBaseModels.Inventory.Product");
 
                     b.Property<string>("Buyer")
                         .HasColumnType("text");
@@ -549,9 +549,9 @@ namespace DataBaseManager.Migrations
                     b.ToTable("Rugs", (string)null);
                 });
 
-            modelBuilder.Entity("Shared.Models.DataBaseModels.Account.Account", b =>
+            modelBuilder.Entity("DataBaseManager.Models.DataBaseModels.Account.Account", b =>
                 {
-                    b.HasOne("Shared.Models.DataBaseModels.Account.Account", "Parent")
+                    b.HasOne("DataBaseManager.Models.DataBaseModels.Account.Account", "Parent")
                         .WithMany("SubAccounts")
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -559,9 +559,9 @@ namespace DataBaseManager.Migrations
                     b.Navigation("Parent");
                 });
 
-            modelBuilder.Entity("Shared.Models.DataBaseModels.Costumers.Customer", b =>
+            modelBuilder.Entity("DataBaseManager.Models.DataBaseModels.Costumers.Customer", b =>
                 {
-                    b.HasOne("Shared.Models.DataBaseModels.Costumers.Person", "Person")
+                    b.HasOne("DataBaseManager.Models.DataBaseModels.Costumers.Person", "Person")
                         .WithMany()
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -570,9 +570,9 @@ namespace DataBaseManager.Migrations
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("Shared.Models.DataBaseModels.Costumers.Person", b =>
+            modelBuilder.Entity("DataBaseManager.Models.DataBaseModels.Costumers.Person", b =>
                 {
-                    b.HasOne("Shared.Models.DataBaseModels.Costumers.Region", "Region")
+                    b.HasOne("DataBaseManager.Models.DataBaseModels.Costumers.Region", "Region")
                         .WithMany()
                         .HasForeignKey("RegionId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -581,9 +581,9 @@ namespace DataBaseManager.Migrations
                     b.Navigation("Region");
                 });
 
-            modelBuilder.Entity("Shared.Models.DataBaseModels.Inventory.Inventory", b =>
+            modelBuilder.Entity("DataBaseManager.Models.DataBaseModels.Inventory.Inventory", b =>
                 {
-                    b.HasOne("Shared.Models.DataBaseModels.Account.Account", "Account")
+                    b.HasOne("DataBaseManager.Models.DataBaseModels.Account.Account", "Account")
                         .WithMany()
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -591,9 +591,9 @@ namespace DataBaseManager.Migrations
                     b.Navigation("Account");
                 });
 
-            modelBuilder.Entity("Shared.Models.DataBaseModels.Inventory.Product", b =>
+            modelBuilder.Entity("DataBaseManager.Models.DataBaseModels.Inventory.Product", b =>
                 {
-                    b.HasOne("Shared.Models.DataBaseModels.Inventory.Inventory", "Inventory")
+                    b.HasOne("DataBaseManager.Models.DataBaseModels.Inventory.Inventory", "Inventory")
                         .WithMany("Products")
                         .HasForeignKey("InventoryId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -602,9 +602,9 @@ namespace DataBaseManager.Migrations
                     b.Navigation("Inventory");
                 });
 
-            modelBuilder.Entity("Shared.Models.DataBaseModels.Sales.Invoice", b =>
+            modelBuilder.Entity("DataBaseManager.Models.DataBaseModels.Sales.Invoice", b =>
                 {
-                    b.HasOne("Shared.Models.DataBaseModels.Costumers.Customer", "Counterparty")
+                    b.HasOne("DataBaseManager.Models.DataBaseModels.Costumers.Customer", "Counterparty")
                         .WithMany()
                         .HasForeignKey("CounterpartyId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -613,21 +613,21 @@ namespace DataBaseManager.Migrations
                     b.Navigation("Counterparty");
                 });
 
-            modelBuilder.Entity("Shared.Models.DataBaseModels.Sales.Sales", b =>
+            modelBuilder.Entity("DataBaseManager.Models.DataBaseModels.Sales.Sales", b =>
                 {
-                    b.HasOne("Shared.Models.DataBaseModels.Sales.Invoice", "Invoice")
+                    b.HasOne("DataBaseManager.Models.DataBaseModels.Sales.Invoice", "Invoice")
                         .WithOne()
-                        .HasForeignKey("Shared.Models.DataBaseModels.Sales.Sales", "InvoiceId")
+                        .HasForeignKey("DataBaseManager.Models.DataBaseModels.Sales.Sales", "InvoiceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Shared.Models.DataBaseModels.Sales.Price", "Price")
+                    b.HasOne("DataBaseManager.Models.DataBaseModels.Sales.Price", "Price")
                         .WithOne()
-                        .HasForeignKey("Shared.Models.DataBaseModels.Sales.Sales", "PriceId")
+                        .HasForeignKey("DataBaseManager.Models.DataBaseModels.Sales.Sales", "PriceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Shared.Models.DataBaseModels.Inventory.Product", "Product")
+                    b.HasOne("DataBaseManager.Models.DataBaseModels.Inventory.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -640,12 +640,12 @@ namespace DataBaseManager.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Shared.Models.DataBaseModels.Account.Account", b =>
+            modelBuilder.Entity("DataBaseManager.Models.DataBaseModels.Account.Account", b =>
                 {
                     b.Navigation("SubAccounts");
                 });
 
-            modelBuilder.Entity("Shared.Models.DataBaseModels.Inventory.Inventory", b =>
+            modelBuilder.Entity("DataBaseManager.Models.DataBaseModels.Inventory.Inventory", b =>
                 {
                     b.Navigation("Products");
                 });

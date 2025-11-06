@@ -1,4 +1,4 @@
-namespace IdentityService.Tests;
+namespace DataBaseManager.Tests;
 
 public class UnitTest1
 {

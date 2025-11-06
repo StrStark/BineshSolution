@@ -1,6 +1,6 @@
-﻿using IdentityService.Models;
+﻿using DataBaseManager.Models;
 
-namespace IdentityService.Extenntions;
+namespace DataBaseManager.Extenntions;
 
 public static class UserExtensions
 {

@@ -1,8 +1,10 @@
 ﻿
+using DataBaseManager.Controllers;
+using MassTransit;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Shared.DataBaseManagerControllerInterfaces.Sales;
 using Shared.Mapper;
 using System.Security.Cryptography.X509Certificates;
-
 namespace WebApplicationApiProvider;
 
 public static partial class Program
@@ -30,23 +32,33 @@ public static partial class Program
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
 
+
+        services.AddControllers();
         //services.AddAuthorization();
 
-        //builder.Services.AddMassTransit(x =>
-        //{
-        //    x.AddConsumers(typeof(Program).Assembly);
+        builder.Services.AddMassTransit(x =>
+        {
+            // Register consumer
+            x.AddConsumer<SaleCreatedConsumer>();
 
-        //    x.UsingRabbitMq((context, cfg) =>
-        //    {
-        //        cfg.Host("rabbitmq", "/", h =>
-        //        {
-        //            h.Username("guest");
-        //            h.Password("guest");
-        //        });
+            // RabbitMQ configuration
+            x.UsingRabbitMq((context, cfg) =>
+            {
+                cfg.Host("rabbitmq://localhost", h =>
+                {
+                    h.Username("guest");
+                    h.Password("guest");
+                });
 
-        //        cfg.ConfigureEndpoints(context);
-        //    });
-        //});
+                // Define queue for this consumer
+                cfg.ReceiveEndpoint("sales_created_queue", e =>
+                {
+                    e.ConfigureConsumer<SaleCreatedConsumer>(context);
+                });
+            });
+        });
+
+        builder.Services.AddMassTransitHostedService();
 
 
 

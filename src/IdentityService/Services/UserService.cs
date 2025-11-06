@@ -1,5 +1,5 @@
-﻿using IdentityService.Mapper;
-using IdentityService.Models;
+﻿using DataBaseManager.Mapper;
+using DataBaseManager.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shared.Dtos;
@@ -7,7 +7,7 @@ using Shared.Dtos.User;
 using System.Net;
 using System.Security.Claims;
 
-namespace IdentityService.Services;
+namespace DataBaseManager.Services;
 
 public class UserService : IUserService
 {

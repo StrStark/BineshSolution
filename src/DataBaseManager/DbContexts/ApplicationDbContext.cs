@@ -1,13 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Shared.Models.DataBaseModels.Account;
-using Shared.Models.DataBaseModels.Costumers;
-using Shared.Models.DataBaseModels.Inventory;
-using Shared.Models.DataBaseModels.Sales;
+﻿using DataBaseManager.Models.AuthModels;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using DataBaseManager.Models.DataBaseModels.Account;
+using DataBaseManager.Models.DataBaseModels.Costumers;
+using DataBaseManager.Models.DataBaseModels.Inventory;
+using DataBaseManager.Models.DataBaseModels.Sales;
 
 
 namespace DataBaseManager.DbContexts;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext :  DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -205,8 +207,25 @@ public class ApplicationDbContext : DbContext
             e.Property(r => r.CityRegion).HasMaxLength(100);
             e.Property(r => r.Mahale).HasMaxLength(100);
         });
-        
 
+
+        modelBuilder.Entity<Token>()
+                .HasKey(t => t.Id);
+        modelBuilder.Entity<UserSession>()
+            .HasKey(x => x.SessionUniqueId);
+
+        modelBuilder.Entity<User>()
+             .HasMany(u => u.Sessions)
+             .WithOne(s => s.User)
+             .HasForeignKey(s => s.UserId)
+             .OnDelete(DeleteBehavior.Cascade);
+
+
+        modelBuilder.Entity<UserSession>()
+            .HasOne(s => s.Token)
+            .WithOne(t => t.UserSession)
+            .HasForeignKey<Token>(s => s.UserSessionId)
+            .OnDelete(DeleteBehavior.Restrict);
 
     }
 }

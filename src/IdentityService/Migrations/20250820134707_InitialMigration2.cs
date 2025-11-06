@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace IdentityService.Migrations
+namespace DataBaseManager.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration2 : Migration

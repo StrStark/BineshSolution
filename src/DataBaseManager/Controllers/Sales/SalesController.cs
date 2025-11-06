@@ -1,21 +1,21 @@
 ﻿using AutoMapper;
 using DataBaseManager.DbContexts;
 using DataBaseManager.Extensions;
+using DataBaseManager.Interfaces.Sales;
 using DocumentFormat.OpenXml.Presentation;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
 using Microsoft.EntityFrameworkCore;
-using Shared.DataBaseManagerControllerInterfaces.Sales;
-using Shared.Dtos;
-using Shared.Dtos.Inventory;
-using Shared.Dtos.Sales;
-using Shared.Enum;
-using Shared.Exceptions;
-using Shared.Models.DataBaseModels.Account;
-using Shared.Models.DataBaseModels.Inventory;
-using Shared.Models.DataBaseModels.Sales;
+using DataBaseManager.Dtos;
+using DataBaseManager.Dtos.Inventory;
+using DataBaseManager.Dtos.Sales;
+using DataBaseManager.Enum;
+using DataBaseManager.Exceptions;
+using DataBaseManager.Models.DataBaseModels.Account;
+using DataBaseManager.Models.DataBaseModels.Inventory;
+using DataBaseManager.Models.DataBaseModels.Sales;
 using System.Linq;
 
 namespace DataBaseManager.Controllers
@@ -47,7 +47,11 @@ namespace DataBaseManager.Controllers
                 if (odataQuery.Top is not null)
                     query = query.Take(odataQuery.Top.Value);
 
-                return ApiResponse<PagedResult<SalesDto>>.Success("Sales fetched successfully", System.Net.HttpStatusCode.OK,new PagedResult<SalesDto>(await query.ToArrayAsync(cancellationToken), totalCount));
+                var res = new PagedResult<SalesDto>(await query.ToArrayAsync(cancellationToken), totalCount);
+
+                await _publishEndpoint.Publish(res, cancellationToken);
+
+                return ApiResponse<PagedResult<SalesDto>>.Success("Sales fetched successfully", System.Net.HttpStatusCode.OK, res);
             }
             catch(Exception ex)
             {

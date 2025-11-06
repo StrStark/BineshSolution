@@ -1,10 +1,10 @@
-﻿using IdentityService.Models;
+﻿using DataBaseManager.Models;
 using Microsoft.AspNetCore.Identity;
 using Shared.Dtos.User;
 using Shared.Dtos;
 using System.Security.Claims;
 
-namespace IdentityService.Services;
+namespace DataBaseManager.Services;
 
 public interface IUserService
 {

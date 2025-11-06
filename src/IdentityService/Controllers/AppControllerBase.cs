@@ -1,11 +1,11 @@
-﻿using IdentityService.Services;
+﻿using DataBaseManager.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using IdentityService.Models;
+using DataBaseManager.Models;
 using Microsoft.Extensions.Options;
-using IdentityService.DbContext;
+using DataBaseManager.DbContext;
 
-namespace IdentityService.Controllers;
+namespace DataBaseManager.Controllers;
 
 public class AppControllerBase : ControllerBase
 {

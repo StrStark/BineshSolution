@@ -1,10 +1,11 @@
-﻿using IdentityService.Models;
+﻿using DataBaseManager.Models;
+using IdentityService.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
 
 
-namespace IdentityService.DbContext
+namespace DataBaseManager.DbContext
 {
     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
     : IdentityDbContext<User, Role, Guid>(options)
