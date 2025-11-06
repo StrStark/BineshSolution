@@ -1,7 +1,7 @@
 ﻿using DataBaseManager.Models.DataBaseModels.Account;
 using DataBaseManager.Models.DataBaseModels.Costumers;
 using DataBaseManager.Models.DataBaseModels.Inventory;
-using DataBaseManager.Models.DataBaseModels.Sales;
+using DataBaseManager.Models.Sales;
 
 namespace DataBaseManager.MockData;
 

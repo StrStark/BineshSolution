@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using DataBaseManager.Mapper;
 using System.Security.Cryptography.X509Certificates;
+using DataBaseManager.Controllers;
+using DataBaseManager.Services.Sales;
+using DataBaseManager.Interfaces.Sales;
 
 namespace DataBaseManager;
 
@@ -44,12 +47,13 @@ public static partial class Program
         });
 
         services.AddDbContext<ApplicationDbContext>(op => op.UseNpgsql(ConnectionString));
-        services.AddScoped<IUserService, UserService>();
-        services.AddScoped<ITokenService, TokenService>();
-        services.AddScoped<ApplicationDbContext>();
+        services.AddDbContext<ApplicationIdentityDbContext>(op => op.UseNpgsql(ConnectionString));
+        services.TryAddScoped<IUserService, UserService>();
+        services.TryAddScoped<ITokenService, TokenService>();
+        services.TryAddScoped<ISalesService, SalesService>();
 
-        services.AddSingleton(certificate);
-        services.AddSingleton(env);
+        services.TryAddSingleton(certificate);
+        services.TryAddSingleton(env);
         services.TryAddTransient<SmsService>();
 
         services

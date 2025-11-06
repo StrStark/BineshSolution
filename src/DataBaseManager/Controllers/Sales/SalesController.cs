@@ -1,29 +1,34 @@
 ﻿using AutoMapper;
 using DataBaseManager.DbContexts;
-using DataBaseManager.Extensions;
-using DataBaseManager.Interfaces.Sales;
-using DocumentFormat.OpenXml.Presentation;
-using DocumentFormat.OpenXml.Spreadsheet;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.OData.Query;
-using Microsoft.AspNetCore.OData.Results;
-using Microsoft.EntityFrameworkCore;
 using DataBaseManager.Dtos;
 using DataBaseManager.Dtos.Inventory;
 using DataBaseManager.Dtos.Sales;
 using DataBaseManager.Enum;
 using DataBaseManager.Exceptions;
+using DataBaseManager.Extensions;
+using DataBaseManager.Interfaces.Sales;
 using DataBaseManager.Models.DataBaseModels.Account;
 using DataBaseManager.Models.DataBaseModels.Inventory;
-using DataBaseManager.Models.DataBaseModels.Sales;
+using DataBaseManager.Models.Sales;
+using DocumentFormat.OpenXml.Presentation;
+using DocumentFormat.OpenXml.Spreadsheet;
+using MassTransit;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Results;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Net;
 
 namespace DataBaseManager.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public partial class SalesController : AppControllerBase , ISalesController
+    public partial class SalesController : AppControllerBase
     {
+
+        [AutoInject] protected readonly ILogger<SalesController> _logger = default!;
+        [AutoInject] protected readonly ISalesService _salesService = default!;
 
         [HttpGet, EnableQuery]
         public IQueryable<SalesDto> Get()
@@ -33,7 +38,7 @@ namespace DataBaseManager.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<ApiResponse<PagedResult<SalesDto>>>> GetSales(ODataQueryOptions<SalesDto> odataQuery , CancellationToken cancellationToken)
+        public async Task<ActionResult<ApiResponse<PagedResult<SalesDto>>>> GetSales(ODataQueryOptions<SalesDto> odataQuery, CancellationToken cancellationToken)
         {
             try
             {
@@ -53,7 +58,7 @@ namespace DataBaseManager.Controllers
 
                 return ApiResponse<PagedResult<SalesDto>>.Success("Sales fetched successfully", System.Net.HttpStatusCode.OK, res);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex, "Error adding sales");
                 return ApiResponse<PagedResult<SalesDto>>.Success($"Failed to fetched sales \n chech logs...", System.Net.HttpStatusCode.OK);
@@ -67,54 +72,40 @@ namespace DataBaseManager.Controllers
         {
             try
             {
-                var dto = await Get().FirstOrDefaultAsync(t => t.Id == id, cancellationToken) ?? throw new ResourceNotFoundException($"Sale reord with id : {id} NotFound!");
+                var dto = await _salesService.GetByIdAsync(id, cancellationToken)
+                    ?? throw new ResourceNotFoundException($"Sale record with id: {id} not found!");
 
-                return ApiResponse<SalesDto>.Success("Sale fetched successfully", System.Net.HttpStatusCode.OK, dto);
-
+                return ApiResponse<SalesDto>.Success("Sale fetched successfully", HttpStatusCode.OK, dto);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error adding sales , error type : {ex.GetType()}");
-                return ApiResponse<SalesDto>.Success($"Failed to fetched sales \n check logs...", System.Net.HttpStatusCode.OK);
+                _logger.LogError(ex, "Error fetching sale");
+                return ApiResponse<SalesDto>.Fail("Failed to fetch sale", HttpStatusCode.InternalServerError);
             }
-          
         }
 
-            [HttpPost]
-            public async Task<ActionResult<ApiResponse<SalesDto>>> Create(SalesDto dto, CancellationToken cancellationToken)
+        [HttpPost]
+        public async Task<ActionResult<ApiResponse<SalesDto>>> Create(SalesDto dto, CancellationToken cancellationToken)
+        {
+            await using var transaction = await _appDbContext.Database.BeginTransactionAsync(cancellationToken);
+            try
             {
-                var transition = await _appDbContext.Database.BeginTransactionAsync();
-                try
-                {
-                    var productTypeCount = new ProductDto[] { dto.Carpet!, dto.Rug!, dto.RawMaterial! }.Count(x => x is not null);
+                var result = await _salesService.CreateAsync(dto, cancellationToken);
+                await transaction.CommitAsync(cancellationToken);
 
-                    if (!(dto.ProductId == Guid.Empty || dto.ProductId == null) && productTypeCount > 0)
-                        throw new InvalidOperationException("Cannot specify both ProductId and a product detail (Carpet/Rug/RawMaterial).");
-
-                    if ((dto.ProductId == Guid.Empty || dto.ProductId == null) && productTypeCount != 1)
-                        throw new InvalidOperationException("When ProductId is not provided, exactly one product detail (Carpet, Rug, or RawMaterial) must be present.");
-
-                    dto.Id = new Guid();
-                    var entityToAdd = _mapper.Map<Sales>(dto);
-
-                    await _appDbContext.Sales.AddAsync(entityToAdd, cancellationToken);
-                    await _appDbContext.SaveChangesAsync(cancellationToken);
-
-                    await transition.CommitAsync();
-                    return ApiResponse<SalesDto>.Success("Sales added successfully", System.Net.HttpStatusCode.OK, _mapper.Map<SalesDto>(entityToAdd));
-                }
-                catch (Exception ex)
-                    {
-                    await transition.RollbackAsync();
-                    _logger.LogError(ex, "Error adding sales");
-                    return ApiResponse<SalesDto>.Fail("Failed to add sales", System.Net.HttpStatusCode.InternalServerError);
-                }
-                finally
-                {
-                    await transition.DisposeAsync();
-                }
-
+                return ApiResponse<SalesDto>.Success("Sale added successfully", HttpStatusCode.OK, result);
             }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync(cancellationToken);
+                _logger.LogError(ex, "Error adding sale");
+                return ApiResponse<SalesDto>.Fail("Failed to add sale", HttpStatusCode.InternalServerError);
+            }
+            finally
+            {
+                await transaction.DisposeAsync();
+            }
+        }
 
         [HttpPut]
         public async Task<ActionResult<ApiResponse<SalesDto>>> Update(SalesDto dto, CancellationToken cancellationToken)
@@ -122,21 +113,16 @@ namespace DataBaseManager.Controllers
             await using var transaction = await _appDbContext.Database.BeginTransactionAsync(cancellationToken);
             try
             {
-                var entityToUpdate = await _appDbContext.Sales.FirstOrDefaultAsync(s => s.Id == dto.Id, cancellationToken) ?? throw new ResourceNotFoundException("") ;
-
-                _mapper.Map(dto, entityToUpdate);
-
-                await _appDbContext.SaveChangesAsync(cancellationToken);
+                var result = await _salesService.UpdateAsync(dto, cancellationToken);
                 await transaction.CommitAsync(cancellationToken);
 
-                var updatedDto = _mapper.Map<SalesDto>(entityToUpdate);
-                return ApiResponse<SalesDto>.Success("Sales updated successfully", System.Net.HttpStatusCode.OK, updatedDto);
+                return ApiResponse<SalesDto>.Success("Sale updated successfully", HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
                 await transaction.RollbackAsync(cancellationToken);
-                _logger.LogError(ex, "Error updating sales");
-                return ApiResponse<SalesDto>.Fail("Failed to update sales", System.Net.HttpStatusCode.InternalServerError);
+                _logger.LogError(ex, "Error updating sale");
+                return ApiResponse<SalesDto>.Fail("Failed to update sale", HttpStatusCode.InternalServerError);
             }
             finally
             {
@@ -151,24 +137,21 @@ namespace DataBaseManager.Controllers
             await using var transaction = await _appDbContext.Database.BeginTransactionAsync(cancellationToken);
             try
             {
-                _appDbContext.Sales.Remove(new() { Id = id });
-                var affectedRows = (await _appDbContext.SaveChangesAsync(cancellationToken));
-
-                if (affectedRows < 1)
-                    throw new ResourceNotFoundException($"Sale reord with id : {id} NotFound!");
-                return ApiResponse.Success("sale record deleted successfully", System.Net.HttpStatusCode.OK);
+                await _salesService.DeleteAsync(id, cancellationToken);
+                await transaction.CommitAsync(cancellationToken);
+                return ApiResponse.Success("Sale deleted successfully", HttpStatusCode.OK);
             }
             catch (Exception ex)
             {
                 await transaction.RollbackAsync(cancellationToken);
-                _logger.LogError(ex, "Error deleting sales");
-                return ApiResponse.Fail("Failed to delete sales", System.Net.HttpStatusCode.InternalServerError);
+                _logger.LogError(ex, "Error deleting sale");
+                return ApiResponse.Fail("Failed to delete sale", HttpStatusCode.InternalServerError);
             }
             finally
             {
                 await transaction.DisposeAsync();
-            }
 
+            }
         }
     }
 }

@@ -10,7 +10,6 @@ public partial class AppControllerBase : ControllerBase
     [AutoInject] protected readonly ApplicationDbContext _appDbContext = default!;
     [AutoInject] protected readonly ApplicationIdentityDbContext _appIdentityDbContext = default!;
     [AutoInject] protected readonly IMapper _mapper = default!;
-    [AutoInject] protected readonly ILogger<SalesController> _logger = default!;
     [AutoInject] protected readonly IPublishEndpoint _publishEndpoint;
     [AutoInject] protected readonly AppSettings _appSettings = default!;
     

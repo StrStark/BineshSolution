@@ -1,7 +1,6 @@
 ﻿using DataBaseManager.Attributes;
 using DataBaseManager.Dtos.Inventory;
 using DataBaseManager.Models.DataBaseModels.Inventory;
-using DataBaseManager.Models.DataBaseModels.Sales;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataBaseManager.Dtos.Sales;
 
-[DtoResourceType(typeof(Models.DataBaseModels.Sales.Sales))]
+[DtoResourceType(typeof(Models.Sales.Sales))]
 public class SalesDto
 {
     [Required(ErrorMessage = "Sale ID is required.")]

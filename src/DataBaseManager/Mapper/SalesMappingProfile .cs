@@ -3,6 +3,7 @@ using DataBaseManager.Dtos.Inventory;
 using DataBaseManager.Dtos.Sales;
 using DataBaseManager.Models.DataBaseModels.Inventory;
 using DataBaseManager.Models.DataBaseModels.Sales;
+using DataBaseManager.Models.Sales;
 using System;
 using System.Collections.Generic;
 using System.Linq;

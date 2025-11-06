@@ -44,7 +44,6 @@
   <ItemGroup>
     <Folder Include="Controllers\UserController\" />
     <Folder Include="Migrations\" />
-    <Folder Include="QuerySystem\" />
   </ItemGroup>
 
 </Project>

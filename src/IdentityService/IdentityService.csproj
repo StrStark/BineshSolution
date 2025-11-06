@@ -23,10 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared\Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Controllers\UserController\" />
     <Folder Include="workers\" />
   </ItemGroup>

@@ -1,29 +1,30 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataBaseManager.Dtos;
+using DataBaseManager.Dtos.Sales;
+using DataBaseManager.Interfaces.Sales;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.OData.UriParser;
-using Shared.Dtos;
-using Shared.Dtos.Sales;
-using System.Threading;
-using WebApplicationApiProvider.Services;
 
-namespace WebApplicationApiProvider.Controller.Sales;
+using System.Threading;
+
+namespace DataBaseManager.Controllers.Panel;
 
 [ApiController , Route("api/[controller]/[action]")]
 public partial class SalesApiController : AppControllerBase
 {
     [AutoInject] protected readonly ILogger<SalesApiController> _logger = default!;
-
+    [AutoInject] protected readonly ISalesService _SalesService =default!;
 
     // you have to implement a service layer later ....
     [HttpPost]
-    public async Task<ActionResult<ApiResponse<SalesPageResponsDto>>> GetAllSales([FromBody] SalesPageRequestDto request)
+    public async Task<ActionResult<ApiResponse<SalesPageResponsDto>>> GetAllSales([FromBody] SalesPageRequestDto request , CancellationToken cancellationToken)
     {
         try
         {
             var duration = request.DateFilter.EndTime - request.DateFilter.StartTime;
 
-            var sales = 
-            var sales_before = _salesController.GetSales(CreateODataQueryForDateDiffrence(request.DateFilter.StartTime - duration, request.DateFilter.StartTime), CancellationToken.None);
+            var Sales = await _SalesService.GetByDateDiffrenceAsync(request.DateFilter.StartTime, request.DateFilter.EndTime, cancellationToken);
+            var SalesBefor = await _SalesService.GetByDateDiffrenceAsync(request.DateFilter.StartTime - duration, request.DateFilter.StartTime, cancellationToken);
 
             //var item_sold = await _appDbContext.Sales.Where(i => i.Date >= request.DateFilter.StartTime && i.Date <= request.DateFilter.EndTime).Include(p => p.Price).Include(i => i.Invoice).Include(p => p.Product).ToListAsync();
             //var item_sold_befor = await _appDbContext.Sales.Where(i => i.Date >= (request.DateFilter.StartTime - duration) && i.Date <= request.DateFilter.StartTime).Include(p => p.Price).Include(i => i.Invoice).Include(p => p.Product).ToListAsync();
@@ -113,10 +114,5 @@ public partial class SalesApiController : AppControllerBase
         return (current - previous) / previous;
     }
 
-    private ODataQueryOptions<SalesDto> CreateODataQueryForDateDiffrence(DateTime start, DateTime end)
-    {
-
-        return ODataQueryBuilder.FromExpression<SalesDto>(this, x => x.Date >= start && x.Date <= end);
-    }
 
 }
