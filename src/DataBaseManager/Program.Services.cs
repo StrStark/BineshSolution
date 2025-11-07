@@ -1,17 +1,20 @@
 ﻿using AutoMapper;
-using DataBaseManager.DbContexts;
-using DataBaseManager.Models.AuthModels;
-using DataBaseManager.Services;
 using MassTransit;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using DataBaseManager.Mapper;
-using System.Security.Cryptography.X509Certificates;
 using DataBaseManager.Controllers;
-using DataBaseManager.Services.Sales;
+using DataBaseManager.DbContexts;
 using DataBaseManager.Interfaces.Sales;
+using DataBaseManager.Mapper;
+using DataBaseManager.Models.AuthModels;
+using DataBaseManager.Services;
+using DataBaseManager.Services.Sales;
+using System.Security.Cryptography.X509Certificates;
+using OpenAiService.Mapper;
+using DataBaseManager.Service;
+using DataBaseManager.Services.OpenAi;
 
 namespace DataBaseManager;
 
@@ -51,6 +54,16 @@ public static partial class Program
         services.TryAddScoped<IUserService, UserService>();
         services.TryAddScoped<ITokenService, TokenService>();
         services.TryAddScoped<ISalesService, SalesService>();
+
+        services.AddSingleton<IOpenAIService>(sp =>
+        {
+            var configuration = sp.GetRequiredService<IConfiguration>();
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", appSettings.OpenAiApiKey);
+
+            return new OpenAIService(httpClient, appSettings.OpenAiApiKey);
+        });
 
         services.TryAddSingleton(certificate);
         services.TryAddSingleton(env);

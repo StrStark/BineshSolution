@@ -12,20 +12,20 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/DataBaseManager/DataBaseManager.csproj", "src/DataBaseManager/"]
-COPY ["src/DataBaseManager/DataBaseManager.csproj", "src/DataBaseManager/"]
-RUN dotnet restore "./src/DataBaseManager/DataBaseManager.csproj"
+COPY ["src/OpenAiService/OpenAiService.csproj", "src/OpenAiService/"]
+COPY ["src/OpenAiService/OpenAiService.csproj", "src/OpenAiService/"]
+RUN dotnet restore "./src/OpenAiService/OpenAiService.csproj"
 COPY . .
-WORKDIR "/src/src/DataBaseManager"
-RUN dotnet build "./DataBaseManager.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/src/OpenAiService"
+RUN dotnet build "./OpenAiService.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./DataBaseManager.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./OpenAiService.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "DataBaseManager.dll"]
+ENTRYPOINT ["dotnet", "OpenAiService.dll"]

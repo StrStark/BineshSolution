@@ -2,7 +2,7 @@
 using DataBaseManager.Models.AuthModels;
 using DataBaseManager.Dtos.User;
 
-namespace DataBaseManager.Mapper;
+namespace OpenAiService.Mapper;
 
 
 public class UserMappingProfile : Profile

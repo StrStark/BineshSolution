@@ -7,7 +7,6 @@ public class AppSettings : IValidatableObject
 {
     public IdentitySettings Identity { get; set; } = default!;
 
-
     public EmailSettings Email { get; set; } = default!;
 
     public SmsSettings Sms { get; set; } = default!;
@@ -18,6 +17,9 @@ public class AppSettings : IValidatableObject
 
     [Required]
     public string GoogleRecaptchaSecretKey { get; set; } = default!;
+
+    [Required]
+    public string OpenAiApiKey { get; set; } = default!;
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
