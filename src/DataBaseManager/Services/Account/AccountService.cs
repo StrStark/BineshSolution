@@ -64,4 +64,11 @@ public partial class AccountService : IAccountService
         return _mapper.Map<List<AccountDto?>>(entities);
 
     }
+
+    public async Task<AccountDto?> GetByNameAsync(string name, CancellationToken cancellationToken)
+    {
+        var entity = await _appDbContext.Accounts.FirstOrDefaultAsync(A => A.Name == name, cancellationToken);
+
+        return _mapper?.Map<AccountDto?>(entity);
+    }
 }

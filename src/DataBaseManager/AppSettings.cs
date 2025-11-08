@@ -12,6 +12,8 @@ public class AppSettings : IValidatableObject
     public SmsSettings Sms { get; set; } = default!;
     public DataProtection DataProtection { get; set; } = default!;
 
+    public ShalliDataBaseNameSettings ShalliSettings { get; set; } = default!;
+
     [Required]
     public string UserProfileImagesDir { get; set; } = default!;
 
@@ -31,6 +33,16 @@ public class AppSettings : IValidatableObject
 
         return validationResults;
     }
+}
+
+public class ShalliDataBaseNameSettings
+{
+    public AccountName AccountNames { get; set; } = default!;
+}
+
+public class AccountName
+{
+    public string RestoredItemsAccount { get; set; } = default!;
 }
 
 public class IdentitySettings : IdentityOptions

@@ -1,4 +1,4 @@
-﻿using BineshSoloution.Models.DataBaseModels.Account;
+﻿using BineshSoloution.Models.Account;
 using BineshSoloution.Models.DataBaseModels.Costumers;
 using BineshSoloution.Models.DataBaseModels.Inventory;
 using BineshSoloution.Models.Sales;

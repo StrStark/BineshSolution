@@ -3,6 +3,7 @@ using BineshSoloution.Dtos.Inventory;
 using BineshSoloution.Dtos.Sales;
 using BineshSoloution.Models.DataBaseModels.Inventory;
 using BineshSoloution.Models.DataBaseModels.Sales;
+using BineshSoloution.Models.Inventory;
 using BineshSoloution.Models.Sales;
 using System;
 using System.Collections.Generic;

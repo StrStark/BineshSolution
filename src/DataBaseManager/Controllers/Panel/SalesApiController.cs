@@ -1,8 +1,11 @@
 ﻿using BineshSoloution.Dtos;
 using BineshSoloution.Dtos.Sales;
+using BineshSoloution.Interfaces.Account;
+using BineshSoloution.Interfaces.Products;
 using BineshSoloution.Interfaces.Sales;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OData.UriParser;
 
 using System.Threading;
@@ -13,49 +16,53 @@ namespace BineshSoloution.Controllers.Panel;
 public partial class SalesApiController : AppControllerBase
 {
     [AutoInject] protected readonly ILogger<SalesApiController> _logger = default!;
-    [AutoInject] protected readonly ISalesService _SalesService =default!;
+    [AutoInject] protected readonly ISalesService _SalesService = default!;
+    [AutoInject] protected readonly IAccountService _AccountService = default!;
+    [AutoInject] protected readonly IProductService _ProductService = default!;
+    [AutoInject] protected readonly AppSettings _AppSettings = default!;
 
     // you have to implement a service layer later ....
     [HttpPost]
-    public async Task<ActionResult<ApiResponse<SalesPageResponsDto>>> GetAllSales([FromBody] SalesPageRequestDto request , CancellationToken cancellationToken)
+    public async Task<ActionResult<ApiResponse<SalesPageResponsDto>>> GetSalesPageData([FromBody] SalesPageRequestDto request , CancellationToken cancellationToken)
     {
         try
         {
             var duration = request.DateFilter.EndTime - request.DateFilter.StartTime;
+            
+            var returedAccounts = await _AccountService.GetByNameAsync(_appSettings.ShalliSettings.AccountNames.RestoredItemsAccount, cancellationToken);
 
             var Sales = await _SalesService.GetByDateDiffrenceAsync(request.DateFilter.StartTime, request.DateFilter.EndTime, cancellationToken);
             var SalesBefor = await _SalesService.GetByDateDiffrenceAsync(request.DateFilter.StartTime - duration, request.DateFilter.StartTime, cancellationToken);
 
-            //var item_sold = await _appDbContext.Sales.Where(i => i.Date >= request.DateFilter.StartTime && i.Date <= request.DateFilter.EndTime).Include(p => p.Price).Include(i => i.Invoice).Include(p => p.Product).ToListAsync();
-            //var item_sold_befor = await _appDbContext.Sales.Where(i => i.Date >= (request.DateFilter.StartTime - duration) && i.Date <= request.DateFilter.StartTime).Include(p => p.Price).Include(i => i.Invoice).Include(p => p.Product).ToListAsync();
+            var returnd = returedAccounts!.SubAccounts.Where(i => i.Date >= (request.DateFilter.StartTime - duration)).ToList();
+            var returndbefore = returedAccounts!.SubAccounts.Where(i => i.Date >= (request.DateFilter.StartTime - duration) && i.Date <= request.DateFilter.StartTime).ToList();
 
-            //var returnd_item = await _appDbContext.Accounts.Where(i => i.Name == "J برگشت از فروش بازرگانی فرش" && (i.Date >= request.DateFilter.StartTime && i.Date <= request.DateFilter.EndTime)).ToListAsync();
-            //var returnd_item_before = await _appDbContext.Accounts.Where(i => i.Name == "J برگشت از فروش بازرگانی فرش" && (i.Date >= (request.DateFilter.StartTime - duration) && i.Date <= request.DateFilter.StartTime)).ToListAsync();
+            var soldItem = Sales.Select(async p => new SoldItem
+            {
+                Type =  (await _ProductService.GetByIdAsync(p.ProductId , cancellationToken))!.GetType().ToString(),
+                Value = p.Price.Receipt
+            }).ToList();
 
-            //var soldItem = item_sold.Select(p => new SoldItem
-            //{
-            //    Type = p.Product.GetType().ToString(),
-            //    Value = p.Price.Receipt
-            //}).ToList();
-            //var returnItem = (await Task.WhenAll(returnd_item.Select(async p =>
-            //{
-            //    var num = int.Parse(p.ArticleDescription!.Split(" ")[1]);
-            //    return new ReturnItem
-            //    {
-            //        Type = (await _appDbContext.Products.Where(p =>
-            //        p.ProductCode == (_appDbContext.Receipts.Where(R => R.number == num).FirstOrDefault()!.ProductCode)).FirstOrDefaultAsync())?.GetType().ToString()!,
-            //        Value = p.Debit
-            //    };
-            //}))).ToList();
+            //needs more thinking.. are we going to solve this in the logic , ir in the mapping ( its better to be solved in the mapping phase ... )
+            var returnItem = (await Task.WhenAll(returnd.Select(async p =>
+            {
+                var num = int.Parse(p.ArticleDescription!.Split(" ")[1]);
+                return new ReturnItem
+                {
+                    Type = (await _appDbContext.Products.Where(p =>
+                    p.ProductCode == (_appDbContext.Receipts.Where(R => R.number == num).FirstOrDefault()!.ProductCode)).FirstOrDefaultAsync())?.GetType().ToString()!,
+                    Value = p.Debit
+                };
+            }))).ToList();
 
-            //CustomerCategorizedSalesDto test = await _appDbContext.Sales.Where(i => i.Date >= request.DateFilter.StartTime && i.Date <= (request.DateFilter.StartTime + request.DateFilter.TimeFrameUnit switch
-            //{
-            //    TimeFrameUnit.Day => TimeSpan.FromDays(1),
-            //    TimeFrameUnit.Week => TimeSpan.FromDays(7),
-            //    TimeFrameUnit.Month => TimeSpan.FromDays(30),
-            //    TimeFrameUnit.Year => TimeSpan.FromDays(365),
-            //    _ => TimeSpan.Zero
-            //})).GroupBy(c =>c.Invoice.); // group them by there category ...
+            CustomerCategorizedSalesDto test = await _appDbContext.Sales.Where(i => i.Date >= request.DateFilter.StartTime && i.Date <= (request.DateFilter.StartTime + request.DateFilter.TimeFrameUnit switch
+            {
+                TimeFrameUnit.Day => TimeSpan.FromDays(1),
+                TimeFrameUnit.Week => TimeSpan.FromDays(7),
+                TimeFrameUnit.Month => TimeSpan.FromDays(30),
+                TimeFrameUnit.Year => TimeSpan.FromDays(365),
+                _ => TimeSpan.Zero
+            })).GroupBy(c =>c.Invoice.); // group them by there category ...
 
 
             //var respons = new SalesPageResponsDto

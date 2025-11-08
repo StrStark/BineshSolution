@@ -1,4 +1,5 @@
 ﻿using BineshSoloution.Models.DataBaseModels.Sales;
+using BineshSoloution.Models.Inventory;
 using System;
 using System.Collections.Generic;
 using System.Linq;

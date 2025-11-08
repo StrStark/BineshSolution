@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace BineshSoloution.Models.DataBaseModels.Account;
+namespace BineshSoloution.Models.Account;
 
 public class Account
 {

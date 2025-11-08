@@ -1,4 +1,4 @@
-﻿using BineshSoloution.Models.DataBaseModels.Account;
+﻿using BineshSoloution.Models;
 using BineshSoloution.Models.DataBaseModels.Inventory;
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ public class InventoryItemResponseDto
     public string? Address { get; set; }
     public string? Manager { get; set; }
 
-    public Account? Account { get; set; } = default!;
+    public Models.Account.Account? Account { get; set; } = default!;
 
     public List<Carpet> Carpets { get; set; } = default!;
     public List<Rug> Rugs { get; set; } = default!;

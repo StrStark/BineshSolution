@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using BineshSoloution.Models.DataBaseModels.Sales;
 
-namespace BineshSoloution.Models.DataBaseModels.Inventory;
+namespace BineshSoloution.Models.Inventory;
 public class Product
 {
     public Guid Id { get; set; }

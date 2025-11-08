@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BineshSoloution.Dtos.Inventory;
-using BineshSoloution.Models.DataBaseModels.Account;
+using BineshSoloution.Models.Account;
 using BineshSoloution.Models.DataBaseModels.Inventory;
 using System;
 using System.Collections.Generic;

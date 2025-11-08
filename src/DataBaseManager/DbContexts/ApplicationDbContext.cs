@@ -1,11 +1,12 @@
 ﻿using BineshSoloution.Models.AuthModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using BineshSoloution.Models.DataBaseModels.Account;
 using BineshSoloution.Models.DataBaseModels.Costumers;
 using BineshSoloution.Models.DataBaseModels.Inventory;
 using BineshSoloution.Models.DataBaseModels.Sales;
 using BineshSoloution.Models.Sales;
+using BineshSoloution.Models.Account;
+using BineshSoloution.Models.Inventory;
 
 
 namespace BineshSoloution.DbContexts;

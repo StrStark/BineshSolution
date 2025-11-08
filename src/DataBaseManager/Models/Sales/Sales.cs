@@ -1,6 +1,6 @@
 ﻿using BineshSoloution.Enum;
-using BineshSoloution.Models.DataBaseModels.Inventory;
 using BineshSoloution.Models.DataBaseModels.Sales;
+using BineshSoloution.Models.Inventory;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

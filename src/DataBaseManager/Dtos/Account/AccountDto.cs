@@ -20,6 +20,8 @@ public class AccountDto
     public Int64 Debit { get; set; }
     [Display(Name = "Credit")]
     public Int64 Credit { get; set; }
+    [Display(Name ="Article Descryption")]
+    public string? ArticleDescription { get; set; }
 
     [Display(Name ="Sub Accounts")]
     public List<AccountDto> SubAccounts { get; set; } = default!;

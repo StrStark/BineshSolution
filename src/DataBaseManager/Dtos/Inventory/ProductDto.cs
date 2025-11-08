@@ -1,4 +1,5 @@
 ﻿using BineshSoloution.Attributes;
+using BineshSoloution.Models.Inventory;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BineshSoloution.Dtos.Inventory;
 
-[DtoResourceType(typeof(Models.DataBaseModels.Inventory.Product))]
+[DtoResourceType(typeof(Product))]
 public class ProductDto
 {
     [Required(ErrorMessage = "Product ID is required.")]

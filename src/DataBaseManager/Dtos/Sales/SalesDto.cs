@@ -17,8 +17,10 @@ public class SalesDto
     [Display(Name = "Sale")]
 
     public Guid Id { get; set; }
+    [Required(ErrorMessage = "product ID is required.")]
+
     [Display(Name = "Product")]
-    public Guid? ProductId { get; set; }
+    public Guid ProductId { get; set; }
 
     [Display(Name = "Carpet? Details")]
     public CarpetDto? Carpet { get; set; }

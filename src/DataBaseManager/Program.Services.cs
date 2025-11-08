@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿
+
+using AutoMapper;
 using MassTransit;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.OData;
@@ -15,6 +17,10 @@ using System.Security.Cryptography.X509Certificates;
 using OpenAiService.Mapper;
 using BineshSoloution.Service;
 using BineshSoloution.Services.OpenAi;
+using BineshSoloution.Interfaces.Account;
+using BineshSoloution.Services.Account;
+using BineshSoloution.Interfaces.Products;
+using BineshSoloution.Services.Products;
 
 namespace BineshSoloution;
 
@@ -52,9 +58,12 @@ public static partial class Program
 
         services.AddDbContext<ApplicationDbContext>(op => op.UseNpgsql(ConnectionString));
         services.AddDbContext<ApplicationIdentityDbContext>(op => op.UseNpgsql(ConnectionString));
+
         services.TryAddScoped<IUserService, UserService>();
         services.TryAddScoped<ITokenService, TokenService>();
         services.TryAddScoped<ISalesService, SalesService>();
+        services.TryAddScoped<IAccountService, AccountService>();
+        services.TryAddScoped<IProductService, ProductService>();
 
         services.AddSingleton<IOpenAIService>(sp =>
         {
