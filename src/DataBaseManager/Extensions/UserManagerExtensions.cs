@@ -1,10 +1,10 @@
-﻿using DataBaseManager.Models;
-using DataBaseManager.Models.AuthModels;
+﻿using BineshSoloution.Models;
+using BineshSoloution.Models.AuthModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using DataBaseManager.Dtos;
+using BineshSoloution.Dtos;
 
-namespace DataBaseManager.Extensions;
+namespace BineshSoloution.Extensions;
 public static class UserManagerExtensions
 {
     public static async Task<User?> FindUserAsync(this UserManager<User> userManager, SignInDto identity)

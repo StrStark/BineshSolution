@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 
-namespace DataBaseManager.Extensions
+namespace BineshSoloution.Extensions
 {
     public static class QueryableProjectionExtensions
     {

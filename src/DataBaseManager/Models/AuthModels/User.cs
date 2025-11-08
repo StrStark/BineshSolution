@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using DataBaseManager.Enum;
+using BineshSoloution.Enum;
 using System.Reflection;
 
-namespace DataBaseManager.Models.AuthModels;
+namespace BineshSoloution.Models.AuthModels;
 
 public class User : IdentityUser<Guid>
 {

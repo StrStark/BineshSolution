@@ -1,7 +1,7 @@
-﻿using DataBaseManager.Models;
-using DataBaseManager.Models.AuthModels;
+﻿using BineshSoloution.Models;
+using BineshSoloution.Models.AuthModels;
 
-namespace DataBaseManager.Extensions;
+namespace BineshSoloution.Extensions;
 
 public static class UserExtensions
 {

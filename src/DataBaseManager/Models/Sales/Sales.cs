@@ -1,6 +1,6 @@
-﻿using DataBaseManager.Enum;
-using DataBaseManager.Models.DataBaseModels.Inventory;
-using DataBaseManager.Models.DataBaseModels.Sales;
+﻿using BineshSoloution.Enum;
+using BineshSoloution.Models.DataBaseModels.Inventory;
+using BineshSoloution.Models.DataBaseModels.Sales;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataBaseManager.Models.Sales;
+namespace BineshSoloution.Models.Sales;
 
 public class Sales
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
-namespace DataBaseManager;
+namespace BineshSoloution;
 
 public class AppSettings : IValidatableObject
 {

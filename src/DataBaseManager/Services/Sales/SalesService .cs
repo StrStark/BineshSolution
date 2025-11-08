@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using DataBaseManager.DbContexts;
-using DataBaseManager.Dtos.Inventory;
-using DataBaseManager.Dtos.Sales;
-using DataBaseManager.Exceptions;
-using DataBaseManager.Interfaces.Sales;
-using DataBaseManager.Models.DataBaseModels.Sales;
-using DataBaseManager.Models.Sales;
+using BineshSoloution.DbContexts;
+using BineshSoloution.Dtos.Inventory;
+using BineshSoloution.Dtos.Sales;
+using BineshSoloution.Exceptions;
+using BineshSoloution.Interfaces.Sales;
+using BineshSoloution.Models.DataBaseModels.Sales;
+using BineshSoloution.Models.Sales;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace DataBaseManager.Services.Sales;
+namespace BineshSoloution.Services.Sales;
 
 public partial class SalesService : ISalesService
 {
@@ -19,14 +19,11 @@ public partial class SalesService : ISalesService
 
     public IQueryable<SalesDto> Get()
     {
-        return _appDbContext.Sales.AsNoTracking()
-            .Select(s => _mapper.Map<SalesDto>(s));
+        return _appDbContext.Sales.Select(s => _mapper.Map<SalesDto>(s));
     }
     public async Task<SalesDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var entity = await _appDbContext.Sales
-            .AsNoTracking()
-            .FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
+        var entity = await _appDbContext.Sales.FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
 
         return entity is null ? null : _mapper.Map<SalesDto>(entity);
     }

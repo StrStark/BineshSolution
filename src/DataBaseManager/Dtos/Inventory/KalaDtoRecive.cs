@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataBaseManager.Dtos.Storage;
+namespace BineshSoloution.Dtos.Storage;
 
 public class KalaDtoRecive
 {

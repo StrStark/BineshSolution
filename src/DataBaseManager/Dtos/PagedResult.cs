@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace DataBaseManager.Dtos;
+namespace BineshSoloution.Dtos;
 
 public class PagedResult<T>
 {

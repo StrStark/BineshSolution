@@ -1,4 +1,4 @@
-﻿namespace DataBaseManager.Models.Embedding;
+﻿namespace BineshSoloution.Models.Embedding;
 
 public class EmbeddingResponse
 {

@@ -1,11 +1,11 @@
-﻿using DataBaseManager.Models;
-using DataBaseManager.Models.Embedding;
-using DataBaseManager.Models.Image_Generation;
-using DataBaseManager.Service;
+﻿using BineshSoloution.Models;
+using BineshSoloution.Models.Embedding;
+using BineshSoloution.Models.Image_Generation;
+using BineshSoloution.Service;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
-namespace DataBaseManager.Services.OpenAi;
+namespace BineshSoloution.Services.OpenAi;
 
 public partial class OpenAIService : IOpenAIService
 {

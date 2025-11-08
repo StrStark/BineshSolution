@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataBaseManager.Enum;
+using BineshSoloution.Enum;
 
-namespace DataBaseManager.Models.DataBaseModels.Costumers;
+namespace BineshSoloution.Models.DataBaseModels.Costumers;
 
 public class Customer
 {

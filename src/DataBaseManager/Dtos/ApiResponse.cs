@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace DataBaseManager.Dtos;
+namespace BineshSoloution.Dtos;
 
 public class ApiResponse<T>
 {

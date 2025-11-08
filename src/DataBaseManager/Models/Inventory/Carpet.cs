@@ -1,12 +1,12 @@
-﻿using DataBaseManager.Enum;
-using DataBaseManager.Models.DataBaseModels.Sales;
+﻿using BineshSoloution.Enum;
+using BineshSoloution.Models.DataBaseModels.Sales;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataBaseManager.Models.DataBaseModels.Inventory;
+namespace BineshSoloution.Models.DataBaseModels.Inventory;
 
 public class Carpet : Product
 {

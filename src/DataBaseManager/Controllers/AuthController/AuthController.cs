@@ -1,19 +1,19 @@
-﻿using DataBaseManager.Services;
+﻿using BineshSoloution.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using DataBaseManager.Dtos;
+using BineshSoloution.Dtos;
 using System.Globalization;
 using Humanizer;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authentication.BearerToken;
 using System.Net;
-using DataBaseManager.Dtos.User;
-using DataBaseManager.Models.AuthModels;
-using DataBaseManager.Extensions;
-using DataBaseManager.Exceptions;
+using BineshSoloution.Dtos.User;
+using BineshSoloution.Models.AuthModels;
+using BineshSoloution.Extensions;
+using BineshSoloution.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataBaseManager.Controllers.AuthController
+namespace BineshSoloution.Controllers.AuthController
 {
     [ApiController]
     [Route("api/[controller]/[action]")]

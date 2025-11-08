@@ -1,4 +1,4 @@
-﻿using DataBaseManager.Enum;
+﻿using BineshSoloution.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DataBaseManager.Models.DataBaseModels.Account;
+namespace BineshSoloution.Models.DataBaseModels.Account;
 
 public class Account
 {

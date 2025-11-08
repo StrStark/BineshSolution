@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using DataBaseManager.DbContexts;
-using DataBaseManager.Dtos;
-using DataBaseManager.Dtos.Inventory;
-using DataBaseManager.Dtos.Sales;
-using DataBaseManager.Enum;
-using DataBaseManager.Exceptions;
-using DataBaseManager.Extensions;
-using DataBaseManager.Interfaces.Sales;
-using DataBaseManager.Models.DataBaseModels.Account;
-using DataBaseManager.Models.DataBaseModels.Inventory;
-using DataBaseManager.Models.Sales;
+using BineshSoloution.DbContexts;
+using BineshSoloution.Dtos;
+using BineshSoloution.Dtos.Inventory;
+using BineshSoloution.Dtos.Sales;
+using BineshSoloution.Enum;
+using BineshSoloution.Exceptions;
+using BineshSoloution.Extensions;
+using BineshSoloution.Interfaces.Sales;
+using BineshSoloution.Models.DataBaseModels.Account;
+using BineshSoloution.Models.DataBaseModels.Inventory;
+using BineshSoloution.Models.Sales;
 using DocumentFormat.OpenXml.Presentation;
 using DocumentFormat.OpenXml.Spreadsheet;
 using MassTransit;
@@ -20,7 +20,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Net;
 
-namespace DataBaseManager.Controllers
+namespace BineshSoloution.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
@@ -60,7 +60,7 @@ namespace DataBaseManager.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error adding sales");
+                _logger.LogError(ex, "Error getting sales");
                 return ApiResponse<PagedResult<SalesDto>>.Success($"Failed to fetched sales \n chech logs...", System.Net.HttpStatusCode.OK);
 
             }

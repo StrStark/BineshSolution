@@ -1,4 +1,4 @@
-﻿namespace DataBaseManager.Extensions;
+﻿namespace BineshSoloution.Extensions;
 
 public static class HttpRequestExtensions
 {

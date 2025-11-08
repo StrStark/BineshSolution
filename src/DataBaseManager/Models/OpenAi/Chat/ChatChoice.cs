@@ -1,4 +1,4 @@
-﻿namespace DataBaseManager.Models;
+﻿namespace BineshSoloution.Models;
 public class ChatChoice
 {
     public int Index { get; set; }

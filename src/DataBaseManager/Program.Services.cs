@@ -4,19 +4,19 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using DataBaseManager.Controllers;
-using DataBaseManager.DbContexts;
-using DataBaseManager.Interfaces.Sales;
-using DataBaseManager.Mapper;
-using DataBaseManager.Models.AuthModels;
-using DataBaseManager.Services;
-using DataBaseManager.Services.Sales;
+using BineshSoloution.Controllers;
+using BineshSoloution.DbContexts;
+using BineshSoloution.Interfaces.Sales;
+using BineshSoloution.Mapper;
+using BineshSoloution.Models.AuthModels;
+using BineshSoloution.Services;
+using BineshSoloution.Services.Sales;
 using System.Security.Cryptography.X509Certificates;
 using OpenAiService.Mapper;
-using DataBaseManager.Service;
-using DataBaseManager.Services.OpenAi;
+using BineshSoloution.Service;
+using BineshSoloution.Services.OpenAi;
 
-namespace DataBaseManager;
+namespace BineshSoloution;
 
 public static partial class Program
 {
@@ -47,6 +47,7 @@ public static partial class Program
             cfg.AddProfile<InventoryMappingProfile>();
             cfg.AddProfile<SalesMappingProfile>();
             cfg.AddProfile<UserMappingProfile>();
+            cfg.AddProfile<AccountMappingProfile>();
         });
 
         services.AddDbContext<ApplicationDbContext>(op => op.UseNpgsql(ConnectionString));
@@ -62,7 +63,7 @@ public static partial class Program
             httpClient.DefaultRequestHeaders.Authorization =
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", appSettings.OpenAiApiKey);
 
-            return new OpenAIService(httpClient, appSettings.OpenAiApiKey);
+            return new OpenAIService(httpClient);
         });
 
         services.TryAddSingleton(certificate);

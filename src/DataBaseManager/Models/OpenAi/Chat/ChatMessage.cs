@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace DataBaseManager.Models;
+namespace BineshSoloution.Models;
 
 public class ChatMessage
 {

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using DataBaseManager.DbContexts;
+using BineshSoloution.DbContexts;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DataBaseManager.Controllers;
+namespace BineshSoloution.Controllers;
 
 public partial class AppControllerBase : ControllerBase
 {

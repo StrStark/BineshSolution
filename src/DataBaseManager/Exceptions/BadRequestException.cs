@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace DataBaseManager.Exceptions;
+namespace BineshSoloution.Exceptions;
 
 public class BadRequestException : RestException
 {

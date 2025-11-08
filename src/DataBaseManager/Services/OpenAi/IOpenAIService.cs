@@ -1,8 +1,8 @@
-﻿using DataBaseManager.Models.Embedding;
-using DataBaseManager.Models.Image_Generation;
-using DataBaseManager.Models;
+﻿using BineshSoloution.Models.Embedding;
+using BineshSoloution.Models.Image_Generation;
+using BineshSoloution.Models;
 
-namespace DataBaseManager.Service;
+namespace BineshSoloution.Service;
 
 public interface IOpenAIService
 {

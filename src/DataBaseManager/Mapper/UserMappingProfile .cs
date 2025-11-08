@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using DataBaseManager.Models.AuthModels;
-using DataBaseManager.Dtos.User;
+using BineshSoloution.Models.AuthModels;
+using BineshSoloution.Dtos.User;
 
 namespace OpenAiService.Mapper;
 

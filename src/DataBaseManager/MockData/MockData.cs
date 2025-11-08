@@ -1,9 +1,9 @@
-﻿using DataBaseManager.Models.DataBaseModels.Account;
-using DataBaseManager.Models.DataBaseModels.Costumers;
-using DataBaseManager.Models.DataBaseModels.Inventory;
-using DataBaseManager.Models.Sales;
+﻿using BineshSoloution.Models.DataBaseModels.Account;
+using BineshSoloution.Models.DataBaseModels.Costumers;
+using BineshSoloution.Models.DataBaseModels.Inventory;
+using BineshSoloution.Models.Sales;
 
-namespace DataBaseManager.MockData;
+namespace BineshSoloution.MockData;
 
 public static class MockData
 {

@@ -1,9 +1,9 @@
 ﻿
-using DataBaseManager.Models.AuthModels;
+using BineshSoloution.Models.AuthModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataBaseManager.DbContexts;
+namespace BineshSoloution.DbContexts;
 
 public class ApplicationIdentityDbContext : IdentityDbContext<User, Role, Guid>
 {

@@ -1,12 +1,12 @@
-﻿using DataBaseManager.Enum;
-using DataBaseManager.Models.DataBaseModels.Costumers;
+﻿using BineshSoloution.Enum;
+using BineshSoloution.Models.DataBaseModels.Costumers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataBaseManager.Models.DataBaseModels.Sales;
+namespace BineshSoloution.Models.DataBaseModels.Sales;
 
 public class Invoice
 {

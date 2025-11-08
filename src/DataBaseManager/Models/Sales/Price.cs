@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataBaseManager.Models.DataBaseModels.Sales;
+namespace BineshSoloution.Models.DataBaseModels.Sales;
 
 public class Price
 {

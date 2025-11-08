@@ -1,4 +1,4 @@
-﻿namespace DataBaseManager.Models.DataBaseModels.Costumers;
+﻿namespace BineshSoloution.Models.DataBaseModels.Costumers;
 
 public class Region
 {

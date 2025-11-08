@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
-using DataBaseManager.Dtos.Inventory;
-using DataBaseManager.Dtos.Sales;
-using DataBaseManager.Models.DataBaseModels.Inventory;
-using DataBaseManager.Models.DataBaseModels.Sales;
-using DataBaseManager.Models.Sales;
+using BineshSoloution.Dtos.Inventory;
+using BineshSoloution.Dtos.Sales;
+using BineshSoloution.Models.DataBaseModels.Inventory;
+using BineshSoloution.Models.DataBaseModels.Sales;
+using BineshSoloution.Models.Sales;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataBaseManager.Mapper;
+namespace BineshSoloution.Mapper;
 
 
 public class SalesMappingProfile : Profile

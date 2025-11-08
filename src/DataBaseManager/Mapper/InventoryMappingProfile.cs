@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
-using DataBaseManager.Dtos.Inventory;
-using DataBaseManager.Models.DataBaseModels.Account;
-using DataBaseManager.Models.DataBaseModels.Inventory;
+using BineshSoloution.Dtos.Inventory;
+using BineshSoloution.Models.DataBaseModels.Account;
+using BineshSoloution.Models.DataBaseModels.Inventory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataBaseManager.Mapper;
+namespace BineshSoloution.Mapper;
 
 public class InventoryMappingProfile : Profile
 {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataBaseManager.Interfaces;
+namespace BineshSoloution.Interfaces;
 
 public interface IAppControllerBase
 {

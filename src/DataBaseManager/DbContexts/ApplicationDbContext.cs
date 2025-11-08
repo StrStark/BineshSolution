@@ -1,14 +1,14 @@
-﻿using DataBaseManager.Models.AuthModels;
+﻿using BineshSoloution.Models.AuthModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using DataBaseManager.Models.DataBaseModels.Account;
-using DataBaseManager.Models.DataBaseModels.Costumers;
-using DataBaseManager.Models.DataBaseModels.Inventory;
-using DataBaseManager.Models.DataBaseModels.Sales;
-using DataBaseManager.Models.Sales;
+using BineshSoloution.Models.DataBaseModels.Account;
+using BineshSoloution.Models.DataBaseModels.Costumers;
+using BineshSoloution.Models.DataBaseModels.Inventory;
+using BineshSoloution.Models.DataBaseModels.Sales;
+using BineshSoloution.Models.Sales;
 
 
-namespace DataBaseManager.DbContexts;
+namespace BineshSoloution.DbContexts;
 
 public class ApplicationDbContext :  DbContext
 {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataBaseManager.Models.DataBaseModels.Inventory;
+namespace BineshSoloution.Models.DataBaseModels.Inventory;
 
 public class Receipt
 {

@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
-using DataBaseManager.Models;
-using DataBaseManager.Models.AuthModels;
+using BineshSoloution.Models;
+using BineshSoloution.Models.AuthModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using DataBaseManager.Dtos;
-using DataBaseManager.Dtos.User;
+using BineshSoloution.Dtos;
+using BineshSoloution.Dtos.User;
 using System.Net;
 using System.Security.Claims;
 
-namespace DataBaseManager.Services;
+namespace BineshSoloution.Services;
 
 public partial class UserService : IUserService
 {

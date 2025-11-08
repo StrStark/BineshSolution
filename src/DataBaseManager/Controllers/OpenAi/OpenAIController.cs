@@ -1,11 +1,11 @@
-﻿using DataBaseManager.Models;
-using DataBaseManager.Models.Embedding;
-using DataBaseManager.Models.Image_Generation;
-using DataBaseManager.Service;
+﻿using BineshSoloution.Models;
+using BineshSoloution.Models.Embedding;
+using BineshSoloution.Models.Image_Generation;
+using BineshSoloution.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DataBaseManager.Controllers.OpenAi
+namespace BineshSoloution.Controllers.OpenAi
 {
     [ApiController]
     [Route("api/[controller]/[action]")]

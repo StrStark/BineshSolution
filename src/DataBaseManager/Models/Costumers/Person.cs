@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataBaseManager.Models.DataBaseModels.Costumers;
+namespace BineshSoloution.Models.DataBaseModels.Costumers;
 
 public class Person
 {

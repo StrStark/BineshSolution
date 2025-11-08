@@ -1,4 +1,4 @@
-namespace DataBaseManager;
+namespace BineshSoloution;
 
 public partial class Program
 {

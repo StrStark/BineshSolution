@@ -1,6 +1,6 @@
-﻿using DataBaseManager.DbContexts;
-using DataBaseManager.Models;
-using DataBaseManager.Models.AuthModels;
+﻿using BineshSoloution.DbContexts;
+using BineshSoloution.Models;
+using BineshSoloution.Models.AuthModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +10,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 
-namespace DataBaseManager.Services;
+namespace BineshSoloution.Services;
 
 public partial class TokenService : ITokenService
 {

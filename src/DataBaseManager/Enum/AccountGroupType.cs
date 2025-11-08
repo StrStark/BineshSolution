@@ -1,4 +1,4 @@
-﻿namespace DataBaseManager.Enum;
+﻿namespace BineshSoloution.Enum;
 
 public enum AccountGroupType
 {

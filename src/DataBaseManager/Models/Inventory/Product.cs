@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using DataBaseManager.Models.DataBaseModels.Sales;
+using BineshSoloution.Models.DataBaseModels.Sales;
 
-namespace DataBaseManager.Models.DataBaseModels.Inventory;
+namespace BineshSoloution.Models.DataBaseModels.Inventory;
 public class Product
 {
     public Guid Id { get; set; }

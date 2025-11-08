@@ -1,13 +1,13 @@
-﻿using DataBaseManager.Dtos;
-using DataBaseManager.Dtos.Sales;
-using DataBaseManager.Interfaces.Sales;
+﻿using BineshSoloution.Dtos;
+using BineshSoloution.Dtos.Sales;
+using BineshSoloution.Interfaces.Sales;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.OData.UriParser;
 
 using System.Threading;
 
-namespace DataBaseManager.Controllers.Panel;
+namespace BineshSoloution.Controllers.Panel;
 
 [ApiController , Route("api/[controller]/[action]")]
 public partial class SalesApiController : AppControllerBase

@@ -1,4 +1,4 @@
-﻿namespace DataBaseManager.Models.Image_Generation;
+﻿namespace BineshSoloution.Models.Image_Generation;
 
 public class ImageData
 {

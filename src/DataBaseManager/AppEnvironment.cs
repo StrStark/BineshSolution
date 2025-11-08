@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataBaseManager;
+namespace BineshSoloution;
 
 public static class AppEnvironment
 {

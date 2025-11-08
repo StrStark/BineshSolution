@@ -1,5 +1,5 @@
-﻿using DataBaseManager.Attributes;
-using DataBaseManager.Enum;
+﻿using BineshSoloution.Attributes;
+using BineshSoloution.Enum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataBaseManager.Dtos.Sales;
+namespace BineshSoloution.Dtos.Sales;
 
 [DtoResourceType(typeof(Models.DataBaseModels.Sales.Invoice))]
 public class InvoiceDto

@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using DataBaseManager;
+using BineshSoloution;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace DataBaseManager.Service;
+namespace BineshSoloution.Service;
 
 public class AppSecureJwtDataFormat(AppSettings appSettings, TokenValidationParameters validationParameters)
     : ISecureDataFormat<AuthenticationTicket>

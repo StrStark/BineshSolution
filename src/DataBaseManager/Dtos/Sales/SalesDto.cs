@@ -1,6 +1,6 @@
-﻿using DataBaseManager.Attributes;
-using DataBaseManager.Dtos.Inventory;
-using DataBaseManager.Models.DataBaseModels.Inventory;
+﻿using BineshSoloution.Attributes;
+using BineshSoloution.Dtos.Inventory;
+using BineshSoloution.Models.DataBaseModels.Inventory;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataBaseManager.Dtos.Sales;
+namespace BineshSoloution.Dtos.Sales;
 
 [DtoResourceType(typeof(Models.Sales.Sales))]
 public class SalesDto

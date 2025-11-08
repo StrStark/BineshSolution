@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataBaseManager.Models.DataBaseModels.Account;
+using BineshSoloution.Models.DataBaseModels.Account;
 
 
-namespace DataBaseManager.Models.DataBaseModels.Inventory;
+namespace BineshSoloution.Models.DataBaseModels.Inventory;
 
 public class Inventory
 {

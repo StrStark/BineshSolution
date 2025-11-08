@@ -1,5 +1,5 @@
 ﻿
-namespace DataBaseManager.Models;
+namespace BineshSoloution.Models;
 
 public class ChatResponse
 {

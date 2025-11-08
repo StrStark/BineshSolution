@@ -1,4 +1,4 @@
-﻿namespace DataBaseManager.Models.AuthModels;
+﻿namespace BineshSoloution.Models.AuthModels;
 
 public class Token
 {

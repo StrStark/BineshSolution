@@ -1,7 +1,7 @@
-﻿using DataBaseManager.Enum;
+﻿using BineshSoloution.Enum;
 using System.ComponentModel.DataAnnotations;
 
-namespace DataBaseManager.Dtos.User;
+namespace BineshSoloution.Dtos.User;
 
 public class UserUpdateRequestDto
 {

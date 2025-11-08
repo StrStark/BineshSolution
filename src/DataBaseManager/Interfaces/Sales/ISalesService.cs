@@ -1,6 +1,6 @@
-﻿using DataBaseManager.Dtos.Sales;
+﻿using BineshSoloution.Dtos.Sales;
 
-namespace DataBaseManager.Interfaces.Sales;
+namespace BineshSoloution.Interfaces.Sales;
 
 public interface ISalesService
 {

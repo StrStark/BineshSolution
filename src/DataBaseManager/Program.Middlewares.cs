@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using DataBaseManager.Extensions;
+using BineshSoloution.Extensions;
 
-namespace DataBaseManager;
+namespace BineshSoloution;
 
 public static partial class Program
 {

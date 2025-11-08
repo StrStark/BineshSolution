@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace DataBaseManager.Extensions;
+namespace BineshSoloution.Extensions;
 
 public static class ClaimsPrincipalExtensions
 {

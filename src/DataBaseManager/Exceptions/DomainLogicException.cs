@@ -1,4 +1,4 @@
-﻿namespace DataBaseManager.Exceptions;
+﻿namespace BineshSoloution.Exceptions;
 
 public class DomainLogicException : KnownException
 {

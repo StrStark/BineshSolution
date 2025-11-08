@@ -1,8 +1,8 @@
-﻿using DataBaseManager.Models;
-using DataBaseManager.Models.AuthModels;
+﻿using BineshSoloution.Models;
+using BineshSoloution.Models.AuthModels;
 using Microsoft.AspNetCore.Authentication;
 
-namespace DataBaseManager.Services;
+namespace BineshSoloution.Services;
 public interface ITokenService
 {
     Task<Token> GenerateTokensAsync(User user);

@@ -1,11 +1,11 @@
-﻿using DataBaseManager.Models;
+﻿using BineshSoloution.Models;
 using Microsoft.AspNetCore.Identity;
-using DataBaseManager.Dtos.User;
-using DataBaseManager.Dtos;
+using BineshSoloution.Dtos.User;
+using BineshSoloution.Dtos;
 using System.Security.Claims;
-using DataBaseManager.Models.AuthModels;
+using BineshSoloution.Models.AuthModels;
 
-namespace DataBaseManager.Services;
+namespace BineshSoloution.Services;
 
 public interface IUserService
 {
