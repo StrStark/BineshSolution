@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BineshSoloution.Dtos.Panel;
+namespace BineshSoloution.Dtos.Panel.Sales;
 
 public class SalesPageResponsCacheDto
 {

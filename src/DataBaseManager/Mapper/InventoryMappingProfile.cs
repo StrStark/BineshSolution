@@ -2,6 +2,7 @@
 using BineshSoloution.Dtos.Inventory;
 using BineshSoloution.Models.Account;
 using BineshSoloution.Models.DataBaseModels.Inventory;
+using BineshSoloution.Models.Inventory;
 using System;
 using System.Collections.Generic;
 using System.Linq;

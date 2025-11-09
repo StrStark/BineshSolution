@@ -1,5 +1,6 @@
 ﻿using BineshSoloution.Dtos;
 using BineshSoloution.Dtos.Panel;
+using BineshSoloution.Dtos.Panel.Sales;
 using BineshSoloution.Enum;
 using BineshSoloution.Interfaces.Account;
 using BineshSoloution.Interfaces.Products;
@@ -18,12 +19,7 @@ namespace BineshSoloution.Controllers.Panel;
 [ApiController , Route("api/[controller]/[action]")]
 public partial class SalesApiController : AppControllerBase
 {
-    [AutoInject] protected readonly ILogger<SalesApiController> _logger = default!;
-    [AutoInject] protected readonly ISalesService _SalesService = default!;
-    [AutoInject] protected readonly IAccountService _AccountService = default!;
-    [AutoInject] protected readonly IProductService _ProductService = default!;
-    [AutoInject] protected readonly AppSettings _AppSettings = default!;
-
+        [AutoInject] protected readonly ILogger<SalesApiController> _logger = default!;
     
     
     //Needs Optimizing ... 
@@ -80,7 +76,7 @@ public partial class SalesApiController : AppControllerBase
     }
     //Needs Optimizing ... 
     [HttpPost] 
-    public async Task<ActionResult<ApiResponse<SalesCardsDto>>> GetSalesCartAsync([FromBody] SalesPageRequestDto request , CancellationToken cancellationToken)
+    public async Task<ActionResult<ApiResponse<SalesCardsDto>>> GetSalesCardAsync([FromBody] SalesPageRequestDto request , CancellationToken cancellationToken)
     {
         try
         {

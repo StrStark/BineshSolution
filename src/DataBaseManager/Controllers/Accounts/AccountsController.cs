@@ -17,7 +17,6 @@ namespace BineshSoloution.Controllers.Accounts;
 public partial class AccountsController : AppControllerBase
 {
     [AutoInject] protected readonly ILogger<AccountsController> _logger = default!;
-    [AutoInject] protected readonly IAccountService _AccountService = default!;
 
     [HttpGet, EnableQuery]
     public IQueryable<SalesDto> Get()

@@ -206,8 +206,7 @@ public class ApplicationDbContext :  DbContext
 
             e.Property(r => r.Country).HasMaxLength(500);
             e.Property(r => r.City).HasMaxLength(100);
-            e.Property(r => r.CityRegion).HasMaxLength(100);
-            e.Property(r => r.Mahale).HasMaxLength(100);
+
         });
 
 

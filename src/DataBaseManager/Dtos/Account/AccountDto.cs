@@ -7,6 +7,8 @@ public class AccountDto
     [Required(ErrorMessage = "Account ID is required.")]
     [Display(Name = "Account")]
     public Guid Id { get; set; }
+    [Display(Name = "Name")]
+    public string Name { get; set; }
     [Display(Name = "Parent Account")]
     public Guid? ParentId { get; set; }
     [Display(Name ="Date")]

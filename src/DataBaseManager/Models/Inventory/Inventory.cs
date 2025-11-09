@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace BineshSoloution.Models.DataBaseModels.Inventory;
+namespace BineshSoloution.Models.Inventory;
 
 public class Inventory
 {

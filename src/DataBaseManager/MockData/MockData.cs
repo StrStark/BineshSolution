@@ -1,6 +1,7 @@
 ﻿using BineshSoloution.Models.Account;
 using BineshSoloution.Models.DataBaseModels.Costumers;
 using BineshSoloution.Models.DataBaseModels.Inventory;
+using BineshSoloution.Models.Inventory;
 using BineshSoloution.Models.Sales;
 
 namespace BineshSoloution.MockData;

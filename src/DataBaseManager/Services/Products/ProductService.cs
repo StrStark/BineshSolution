@@ -2,6 +2,7 @@
 using BineshSoloution.DbContexts;
 using BineshSoloution.Dtos.Account;
 using BineshSoloution.Dtos.Inventory;
+using BineshSoloution.Enum;
 using BineshSoloution.Exceptions;
 using BineshSoloution.Interfaces.Products;
 using BineshSoloution.Services.Account;
@@ -55,8 +56,27 @@ public partial class ProductService : IProductService
             throw new ResourceNotFoundException($"Product record with id {id} not found.");
     }
 
+    public async Task<ProductDto?> GetByInventoryCodeAsync(int inventoryCode, CancellationToken cancellationToken)
+    {
+        var entity = await _appDbContext.Products.Include(p => p.Inventory).Where(p => p.Inventory.Code == inventoryCode).ToListAsync(); ;
 
+        return _mapper.Map<ProductDto?>(entity);
 
+    }
 
+    public Task<ProductDto?> GetByCategoryAsync(ProductCategory category, CancellationToken cancellationToken)
+    {
+        var entity =  _appDbContext.Products.Where(p => p.GetType().ToString() == category.ToString()).ToListAsync(cancellationToken); // might not work
+
+        return _mapper.Map<Task<ProductDto?>>(entity);
+
+    }
+
+    public async Task<ProductDto?> GetByInventoryIdAndCategoryAsync(int inventoryCode, ProductCategory category, CancellationToken cancellationToken)
+    {
+        var entity = await _appDbContext.Products.Include(p => p.Inventory).Where(p => p.Inventory.Code == inventoryCode && p.GetType().ToString()== category.ToString()).ToListAsync(); 
+    
+        return _mapper.Map<ProductDto?>(entity);
+    }
 }
 
