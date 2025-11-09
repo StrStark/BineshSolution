@@ -19,11 +19,9 @@ public class RegionDto
     public string? Country { get; set; }
 
     [Display(Name = "City")]
-    public string? City { get; set; }
+    public string? Province { get; set; }
 
     [Display(Name = "City Region")]
-    public string? CityRegion { get; set; }
+    public string? City { get; set; }
 
-    [Display(Name = "Mahale")]
-    public string? Mahale { get; set; }
 }

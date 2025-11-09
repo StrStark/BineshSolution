@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace BineshSoloution;
@@ -23,6 +24,9 @@ public class AppSettings : IValidatableObject
     [Required]
     public string OpenAiApiKey { get; set; } = default!;
 
+    [Required]
+    public PanelWorkerSettings PanelWorker { get; set; } = default!;
+
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
         var validationResults = new List<ValidationResult>();
@@ -33,6 +37,10 @@ public class AppSettings : IValidatableObject
 
         return validationResults;
     }
+}
+public class PanelWorkerSettings
+{
+    public TimeSpan Interval { get; set; } = TimeSpan.FromMinutes(5);
 }
 
 public class ShalliDataBaseNameSettings

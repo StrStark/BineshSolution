@@ -69,7 +69,15 @@ public partial class SalesService : ISalesService
 
     public async Task<List<SalesDto?>> GetByDateDiffrenceAsync(DateTime Start, DateTime End, CancellationToken cancellationToken)
     {
-        var entities = await _appDbContext.Sales.Where(i => i.Date >= Start && i.Date <= End).Include(p => p.Price).Include(i => i.Invoice).Include(p => p.Product).ToListAsync(cancellationToken);
+        var entities = await _appDbContext.Sales
+            .Where(i => i.Date >= Start && i.Date <= End)
+            .Include(p => p.Price)
+            .Include(p => p.Product)
+            .Include(i => i.Invoice)
+            .ThenInclude(i => i.Counterparty)
+            .ThenInclude(c => c.Person)
+            .ThenInclude(p => p.Region)
+            .ToListAsync(cancellationToken);
         
         return _mapper.Map<List<SalesDto?>>(entities);
 

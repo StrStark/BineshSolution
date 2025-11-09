@@ -1,26 +1,28 @@
 ﻿
 
 using AutoMapper;
+using BineshSoloution.Controllers;
+using BineshSoloution.DbContexts;
+using BineshSoloution.Dtos.Panel;
+using BineshSoloution.Interfaces.Account;
+using BineshSoloution.Interfaces.Products;
+using BineshSoloution.Interfaces.Sales;
+using BineshSoloution.Mapper;
+using BineshSoloution.Models.AuthModels;
+using BineshSoloution.Service;
+using BineshSoloution.Services;
+using BineshSoloution.Services.Account;
+using BineshSoloution.Services.OpenAi;
+using BineshSoloution.Services.Products;
+using BineshSoloution.Services.Sales;
+using BineshSoloution.Workers;
 using MassTransit;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using BineshSoloution.Controllers;
-using BineshSoloution.DbContexts;
-using BineshSoloution.Interfaces.Sales;
-using BineshSoloution.Mapper;
-using BineshSoloution.Models.AuthModels;
-using BineshSoloution.Services;
-using BineshSoloution.Services.Sales;
-using System.Security.Cryptography.X509Certificates;
 using OpenAiService.Mapper;
-using BineshSoloution.Service;
-using BineshSoloution.Services.OpenAi;
-using BineshSoloution.Interfaces.Account;
-using BineshSoloution.Services.Account;
-using BineshSoloution.Interfaces.Products;
-using BineshSoloution.Services.Products;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BineshSoloution;
 
@@ -64,6 +66,10 @@ public static partial class Program
         services.TryAddScoped<ISalesService, SalesService>();
         services.TryAddScoped<IAccountService, AccountService>();
         services.TryAddScoped<IProductService, ProductService>();
+
+        services.AddSingleton<PanelDataCache>(); // lets use a higher model for the entire app ..... 
+        services.AddHostedService<PanelComputationWorker>();
+
 
         services.AddSingleton<IOpenAIService>(sp =>
         {

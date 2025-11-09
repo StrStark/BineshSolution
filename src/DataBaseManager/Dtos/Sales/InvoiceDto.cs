@@ -1,4 +1,5 @@
 ﻿using BineshSoloution.Attributes;
+using BineshSoloution.Dtos.Customers;
 using BineshSoloution.Enum;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,8 @@ public class InvoiceDto
     public int DocNumber { get; set; }
 
     [Required(ErrorMessage = "Counterparty information is required.")]
+    [Display(Name = "Counterparty Id")]
+    public Guid CounterpartyId { get; set; } = default!;
     [Display(Name = "Counterparty")]
-    public Guid Counterparty { get; set; } = default!;
+    public CustomerDto? Counterparty { get; set; }
 }
