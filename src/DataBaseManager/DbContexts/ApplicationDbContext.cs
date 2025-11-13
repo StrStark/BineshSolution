@@ -1,5 +1,4 @@
 ﻿using BineshSoloution.Models.AuthModels;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using BineshSoloution.Models.DataBaseModels.Costumers;
 using BineshSoloution.Models.DataBaseModels.Inventory;

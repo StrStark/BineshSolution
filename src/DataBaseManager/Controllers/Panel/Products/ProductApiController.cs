@@ -21,7 +21,7 @@ public partial class ProductApiController : AppControllerBase
 
             var response = new ProductCardDto
             {
-                TotalProdact // finish it later ..
+                 // finish it later ..
             };
 
             return ApiResponse<ProductCardDto>.Success("Sales Fetched successfully", System.Net.HttpStatusCode.OK);

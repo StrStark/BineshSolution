@@ -8,16 +8,16 @@ namespace BineshSoloution.MockData;
 
 public static class MockData
 {
-    public static List<Sales> MockSalesData = new()
-    {
+    public static List<Sales> MockSalesData =
+    [
         new Sales
         {
             ProductId = Guid.Parse("ecd5604e-bcae-4ec5-aa46-e25d07de6ad2"),
             
         }
-    };
-    public static List<Inventory> MockInventoryData = new()
-    {
+    ];
+    public static List<Inventory> MockInventoryData =
+    [
         new Inventory
         {
             Description = "*انبار محصول آماده فروش",
@@ -33,8 +33,8 @@ public static class MockData
             AffectStockCalculation = true,
             UseAverageOrFIFOFromYearStart = false,
             Manager = "",
-                Products = new()
-                {
+                Products =
+                [
                     new Carpet { DesignName = "گلستان",Color = "سرمه ای",BorderColor = "سفید" ,DesignCode ="ترانه(کد136) ",Shoulder = "700",Density = "2550",Size = "0.8*0.5",WeavePattern = "پادری",ColorCount = 8,genus = "آکریلیک",Grade = "درجه 1",ProjectName = "پروژه  روی بافت نمایشگاه ",Manufacturer = "+340",ColorPalette = "C14",WeaveType = "برجسته",Buyer = "شرکت ساغر",DeviceNumber = "H",ProductCode = "0118808701127131510116020100101070591130015",ProductDesc = "فرش 4*3 _ گلستان _ 1000 شانه آکریلیک تراکم1800 8رنگ _ درجه 1 +400" ,ProductDesc2 = " فرش گلستان 4*3 _ _ . آکریلیک 1000 شانه تراکم1800 +400 .",ProductDescBarcode = "", ProductDescLatin = "", ProductIsActive = true, Cost = 240000000, SellingPrice = 240000000,},
                     new Carpet { DesignName = "گلستان 1", Color = "سرمه ای", BorderColor = "سفید", DesignCode = "ترانه(کد136)", Shoulder = "700", Density = "2550", Size = "0.8*0.5", WeavePattern = "پادری", ColorCount = 8, genus = "آکریلیک", Grade = "درجه 1", ProjectName = "پروژه روی بافت نمایشگاه", Manufacturer = "+340", ColorPalette = "C14", WeaveType = "برجسته", Buyer = "شرکت ساغر", DeviceNumber = "H", ProductCode = "0118808701127131510116020100101070591130001", ProductDesc = "فرش 4*3 _ گلستان _ 1000 شانه آکریلیک تراکم1800 8رنگ _ درجه 1 +400", ProductDesc2 = "فرش گلستان 4*3 _ _ . آکریلیک 1000 شانه تراکم1800 +400 .", ProductDescBarcode = "", ProductDescLatin = "", ProductIsActive = true, Cost = 240000000, SellingPrice = 240000000 },
                     new Carpet { DesignName = "گلستان 2", Color = "قرمز", BorderColor = "سفید", DesignCode = "ترانه(کد137)", Shoulder = "702", Density = "2555", Size = "0.81*0.51", WeavePattern = "پادری", ColorCount = 9, genus = "آکریلیک", Grade = "درجه 1", ProjectName = "پروژه روی بافت نمایشگاه", Manufacturer = "+341", ColorPalette = "C15", WeaveType = "برجسته", Buyer = "شرکت ساغر", DeviceNumber = "H", ProductCode = "0118808701127131510116020100101070591130002", ProductDesc = "فرش 4*3 _ گلستان _ 1000 شانه آکریلیک تراکم1800 9رنگ _ درجه 1 +400", ProductDesc2 = "فرش گلستان 4*3 _ _ . آکریلیک 1000 شانه تراکم1800 +400 .", ProductDescBarcode = "", ProductDescLatin = "", ProductIsActive = true, Cost = 240500000, SellingPrice = 240500000 },
@@ -54,11 +54,11 @@ public static class MockData
                     //{
 
                     //}
-                },
+                ],
             Address = "",
             AllowNegativeStock = false
         }
-    };
+    ];
     public static List<Account> MockAccountData = new()
     {
         new Account
@@ -66,20 +66,20 @@ public static class MockData
             Name = "فروش",
             Code = "601",
             IsLayerOne = true,
-            SubAccounts = new List<Account>
-            {
+            SubAccounts =
+            [
                 new Account
                 {
                     Name = "J فروش بازرگانی",
                     Code = "0000003",
-                    SubAccounts = new List<Account>
-                    {
+                    SubAccounts =
+                    [
                         new Account
                         {
                             Name = "J فروش بازرگانی فرش",
                             Code = "0000001",
-                            SubAccounts = new List<Account>
-                            {
+                            SubAccounts =
+                            [
                                 new Account { inflection = 2,Article =  67, Date = DateTime.SpecifyKind(new DateTime(1400,01,04), DateTimeKind.Utc), DocDate = DateTime.SpecifyKind(new DateTime(1400,01,07), DateTimeKind.Utc), ArticleDescription = "حواله 3  انبار 31  تاریخ 1400/01/04    آقای علی قندیKH   ",Credit = 130000000,OperationName = "حواله",},
                                 new Account { inflection = 2, Article = 67, Date = DateTime.SpecifyKind(new DateTime(1400,01,04), DateTimeKind.Utc), DocDate = DateTime.SpecifyKind(new DateTime(1400,01,07), DateTimeKind.Utc), ArticleDescription = "حواله 1  انبار 31  تاریخ 1400/01/04    آقای علی قندی", Credit = 130000000, OperationName = "حواله" },
                                 new Account { inflection = 2, Article = 68, Date = DateTime.SpecifyKind(new DateTime(1400,01,05), DateTimeKind.Utc), DocDate = DateTime.SpecifyKind(new DateTime(1400,01,08), DateTimeKind.Utc), ArticleDescription = "حواله 2  انبار 31  تاریخ 1400/01/05    آقای مهدی کریمی", Credit = 142000000, OperationName = "حواله" },
@@ -107,9 +107,9 @@ public static class MockData
                                 new Account { inflection = 2, Article = 90, Date = DateTime.SpecifyKind(new DateTime(1400,01,27), DateTimeKind.Utc), DocDate = DateTime.SpecifyKind(new DateTime(1400,01,30), DateTimeKind.Utc), ArticleDescription = "حواله 24  انبار 31  تاریخ 1400/01/27    آقای ناصر احمدی", Credit = 134000000, OperationName = "حواله" },
                                 new Account { inflection = 2, Article = 91, Date = DateTime.SpecifyKind(new DateTime(1400,02,01), DateTimeKind.Utc), DocDate = DateTime.SpecifyKind(new DateTime(1400,02,04), DateTimeKind.Utc), ArticleDescription = "حواله 25  انبار 31  تاریخ 1400/02/01    آقای رضا محمدی", Credit = 138000000, OperationName = "حواله" },
                                 new Account { inflection = 2, Article = 92, Date = DateTime.SpecifyKind(new DateTime(1400,02,02), DateTimeKind.Utc), DocDate = DateTime.SpecifyKind(new DateTime(1400,02,05), DateTimeKind.Utc), ArticleDescription = "حواله 26  انبار 31  تاریخ 1400/02/02    آقای حسن رضایی", Credit = 150000000, OperationName = "حواله" },
-                            }
+                            ]
                         }
-                    }
+                    ]
                 } ,
                 new Account
                 {
@@ -121,12 +121,8 @@ public static class MockData
                     Name = "J فروش (اصلاح موجودی)",
                     Code = "0000005",
                 }
-            }
+            ]
         }
     };
-    public static List<Customer> MockCustomerData = new()
-    {
-
-
-    };
+    public static List<Customer> MockCustomerData = [];
 }

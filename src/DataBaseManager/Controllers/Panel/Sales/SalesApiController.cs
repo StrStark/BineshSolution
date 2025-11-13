@@ -43,6 +43,7 @@ public partial class SalesApiController : AppControllerBase
                 Type =  (await _ProductService.GetByIdAsync(p.ProductId , cancellationToken))!.GetType().ToString(),
                 Value = p.Price.Receipt
             }))).ToList();
+
             //needs more thinking.. are we going to solve this in the logic , ir in the mapping ( its better to be solved in the mapping phase ... )
             var returnItem = (await Task.WhenAll(returnd.Select(async p =>
             {

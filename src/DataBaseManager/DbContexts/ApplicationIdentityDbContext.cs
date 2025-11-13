@@ -1,5 +1,4 @@
-﻿
-using BineshSoloution.Models.AuthModels;
+﻿using BineshSoloution.Models.AuthModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

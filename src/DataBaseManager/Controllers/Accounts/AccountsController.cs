@@ -3,8 +3,6 @@ using BineshSoloution.Dtos.Account;
 using BineshSoloution.Dtos.Sales;
 using BineshSoloution.Exceptions;
 using BineshSoloution.Extensions;
-using BineshSoloution.Interfaces.Account;
-using BineshSoloution.Interfaces.Sales;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.EntityFrameworkCore;
