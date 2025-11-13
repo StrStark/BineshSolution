@@ -235,29 +235,7 @@ public partial class SalesApiController : AppControllerBase
 
 
 
-    private static float CalculateGrowth(float current, float previous)
-    {
-        if (previous == 0) return 0;
-        return (current - previous) / previous;
-    }
-    private static DateTime GetTimeFrameStart(DateTime date, TimeFrameUnit unit)
-    {
-        return unit switch
-        {
-            TimeFrameUnit.Day => date.Date,
-
-            TimeFrameUnit.Week => date.AddDays(-(int)date.DayOfWeek).Date, // Sunday-start week
-
-            TimeFrameUnit.Month => new DateTime(date.Year, date.Month, 1),
-
-            TimeFrameUnit.Quarter =>
-                new DateTime(date.Year, ((date.Month - 1) / 3) * 3 + 1, 1),
-
-            TimeFrameUnit.Year => new DateTime(date.Year, 1, 1),
-
-            _ => date.Date
-        };
-    }
+    
 
 
 }
