@@ -11,7 +11,7 @@ public class Receipt
     public Guid Id { get; set; }
 
     public string? ProductCode { get; set; }
-    public int number { get; set; }
+    public int Number { get; set; }
     public DateTime Date { get; set; }
     public string? Descryption { get; set; }
     public string? ReceiptType { get; set; } // change to enum

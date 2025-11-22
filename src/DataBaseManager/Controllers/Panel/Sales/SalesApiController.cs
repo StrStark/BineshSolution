@@ -51,7 +51,7 @@ public partial class SalesApiController : AppControllerBase
                 return new ReturnItem
                 {
                     Type = (await _appDbContext.Products.Where(p =>
-                    p.ProductCode == (_appDbContext.Receipts.Where(R => R.number == num).FirstOrDefault()!.ProductCode)).FirstOrDefaultAsync())?.GetType().ToString()!,
+                    p.ProductCode == (_appDbContext.Receipts.Where(R => R.Number == num).FirstOrDefault()!.ProductCode)).FirstOrDefaultAsync())?.GetType().ToString()!,
                     Value = p.Debit
                 };
             }))).ToList();
@@ -103,7 +103,7 @@ public partial class SalesApiController : AppControllerBase
                 return new ReturnItem
                 {
                     Type = (await _appDbContext.Products.Where(p =>
-                    p.ProductCode == (_appDbContext.Receipts.Where(R => R.number == num).FirstOrDefault()!.ProductCode)).FirstOrDefaultAsync())?.GetType().ToString()!,
+                    p.ProductCode == (_appDbContext.Receipts.Where(R => R.Number == num).FirstOrDefault()!.ProductCode)).FirstOrDefaultAsync())?.GetType().ToString()!,
                     Value = p.Debit
                 };
             }))).ToList();
